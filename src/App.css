@@ -781,7 +781,6 @@ body {
 }
 
 .invite-friends-btn {
-  padding: 15px 20px 15px 20px;
   border-radius: 8px;
   background: linear-gradient(180deg, #3C9BE9 0%, #254FB0 100%);
   box-shadow: 0px 0px 16px 0px #4747D542;
@@ -792,15 +791,54 @@ body {
   font-weight: 600;
   text-align: center;
   color: #FFFBE9;
+  user-select: none;
 }
+
+.claim-all-btn {
+  border-radius: 5px;
+  background: linear-gradient(180deg, #3C9BE9 0%, #254FB0 100%);
+  box-shadow: 0px 0px 16px 0px #4747D542;
+  box-shadow: 2px 2px 4px 0px #FFFFFF29 inset;
+  box-shadow: -2px -2px 4px 0px #130F0F1F inset;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  color: #FFFBE9;
+  user-select: none;
+}
+
+.friends-list {
+  border-radius: 8px;
+  backdrop-filter: blur(56px);
+  background: linear-gradient(90deg, #E3F8FA 0%, #EEFAFC 100%);
+}
+
 
 .friends-slot {
   /* width: 414px; */
-  border-radius: 20px;
+  margin-left: 4px;
+  margin-right: 4px;
+  border-bottom: 1px solid #333333;
+}
 
-  background: #2A2A2A;
-  border: 1px solid;
-  border-image-source: linear-gradient(92.12deg, rgba(255, 255, 255, 0.3) -9.53%, rgba(255, 255, 255, 0.08) 103.34%);
+.friend-slot-baunty {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 300;
+  text-align: left;
+  color:#08B859;
+}
+
+.claim-btn {
+  border-radius: 5px;
+  background: linear-gradient(180deg, #35b42c 0%, rgb(62, 223, 62) 100%);
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 300;
+  text-align: center;
+  color: #FFFBE9;
+  user-select: none;
 }
 
 .friends-devider {

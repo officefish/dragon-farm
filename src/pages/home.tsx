@@ -20,7 +20,7 @@ const Home: FC = () => {
   const { player } = useUserStore();
 
   useEffect(() => {
-    setPage(Page.HOME);
+    setPage(Page.FARM);
   }, [setPage]);
 
   const handleDaily = useCallback(() => {

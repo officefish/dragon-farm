@@ -26,7 +26,7 @@ const Friends: FC = () => {
     getRefferals,
   } = useUserStore()
  
- const [refferals, setReferrals] = useState<IReferral[]>()
+ const [referrals, setReferrals] = useState<IReferral[]>()
 
   useEffect(() => {
     
@@ -98,7 +98,7 @@ const Friends: FC = () => {
           <div className="friends-description pt-3">You and your friend will get bonus</div>
         </div>
         {/* Friends banner */}
-        <div className="w-full px-1 pt-4">
+        <div className="pt-4 mx-1">
           <img className="w-full" src="/friends/friends.png" alt="friends" />
           <div className="friends-banner flex flex-row items-center justify-between py-2">
             <div className="flex flex-col items-center w-full gap-2">
@@ -109,7 +109,7 @@ const Friends: FC = () => {
                 <img className="w-5 h-5" src="/stats/coin.png" alt="" />
                 + 1 237.344K
               </div>
-              <div className="friend-banner-description">both for you and your friend</div>
+              <div className="friend-banner-description w-full">both for you and your friend</div>
             </div>
             <div className="h-[72px] flex flex-col items-center w-full gap-2">
               <div className="w-full text-center friends-banner-title px-4">Invite friend<br />Telegram Premium</div>
@@ -118,29 +118,48 @@ const Friends: FC = () => {
                 <img className="w-5 h-5" src="/stats/coin.png" alt="" />
                 + 1 237.344K
               </div>
-              <div className="friend-banner-description">both for you and your friend</div>
+              <div className="friend-banner-description w-full">both for you and your friend</div>
             </div>
           </div>
         </div>
         {/* Friends list */}
-        <div className="w-full px-2 pt-4 friends-list-label">Your friends</div>
-        {refferals 
-          ? <div className="w-full px-2 mt-4 friends-list">
-          {/* <FriendsList friends={refferals} /> */}
-            </div> 
-          : <div className="mx-2 mt-4 flex items-center justify-center gap-2 h-16 no-friends-slot">
+        <div className="w-full px-2 pt-4 friends-list-label flex flex-row items-center justify-between">
+          <div>Your friends</div>
+          <div>{referrals?.length && (<div className="
+          invite-friends-btn
+          btn-no-body 
+          w-24 flex flex-row gap-1 items-center justify-center
+          px-3 py-2
+          claim-all-btn
+          ">Claim all
+          <img src="/friends/claim-check.png" alt="claim" />
+          </div>)}</div>
+          </div>
+        {referrals 
+          ? <><FriendsList friends={referrals} /></> 
+          : <div className="mx-1 mt-4 flex items-center justify-center gap-2 h-16 no-friends-slot">
             Still no friends here 😔
             </div>
         }
          <div className='fixed bottom-16 mb-1 w-screen px-3 flex flex-row justify-between gap-3'>
-        <div className='invite-friends-btn w-full btn-no-body flex flex-row items-center justify-center gap-2 text-nowrap'
+        <div className='
+        invite-friends-btn 
+        w-full btn-no-body 
+        flex flex-row items-center justify-center 
+        gap-2 text-nowrap
+        px-5 py-4
+        '
           onClick={handleShare}
           >INVITE FRIENDS 
         </div>
-        <div className='invite-friends-btn btn-no-body !w-20 flex items-center justify-center'
+        <div className='
+        invite-friends-btn btn-no-body 
+        !w-20 flex items-center justify-center
+        px-5 py-4
+        '
            onClick={handleCopy}
            >
-          <img className="w-10 h-10" src="/friends/copy.png" alt="copy" />
+          <img className="w-8 h-8" src="/friends/document-copy.png" alt="copy" />
         </div>
       </div>   
     </div>
@@ -149,75 +168,9 @@ const Friends: FC = () => {
 
 export default Friends
 
-  /*
-  return (
-    <>
-      <div className="w-screen">
-      <div className="friends-header py-4">
-        Всегда выгоднее действовать сообща!
-      </div>
-      <div className="
-      friends-description friends-slot 
-      flex flex-row items-center justify-center 
-      gap-2 px-2 mx-2
-      h-[75px]
-      ">
-        <img src="/friends/gift.png" alt="gift" />
-        Приглашай заговорщиков в фирму и собирай подогрев.
-      </div>
-      {refferals 
-        ?  <div className="
-        friends-description friends-slot 
-        flex flex-col items-center justify-start 
-        gap-1 px-2 mt-3
-        h-[100px] pt-2
-      ">
-      <div className="function-btn pt-4">Забрать сбор</div>
-      <div className="flex flex-row items-center justify-between w-full px-5 !h-[42px]">
-        Фирма принесла вам доход.
-        <div className="flex flex-row gap-2">0 <img className="w-6 h-6" src="/home/coin.png" alt="" /></div> 
-      </div>
-      </div>
-        : <div className="
-          friends-description friends-slot 
-          flex flex-row items-center justify-center 
-          gap-2 px-8 mt-3
-          opacity-70 h-[100px]
-        ">
-        Вам нужно проявлять больше активности, чтобы другие еноты последовали за вами.
-        </div>
-      }
-      <div className="friends-devider mt-3 px-4">Список ваших друзей.</div>
-      {refferals 
-        ? <div>
-          {refferals && <FriendsList friends={refferals || []} />}
-        </div>
-        : <div className="
-        friends-description friends-slot 
-        flex flex-row items-center justify-center 
-        px-8 mt-3
-        opacity-70 h-[75px]
-        ">Пока еще никто не перешел по вашей ссылке.</div>
-      }   
-    </div>
-      <div className='absolute bottom-24 mb-2 w-screen px-3 flex flex-row justify-between gap-3'>
-        <div className='function-btn btn-no-body flex flex-row items-center justify-center gap-2 text-nowrap'
-          onClick={handleShare}
-          >Пригласить друга 
-          <img className="w-8 h-8" src="/friends/group.png" alt="friends" />
-        </div>
-        <div className='function-btn btn-no-body !w-20 flex items-center justify-center'
-          onClick={handleCopy}
-          ><img className="w-10 h-10" src="/friends/copy.png" alt="copy" />
-        </div>
-      </div>   
-    </>
-  
-  )
-*/
-
 interface UserItemProps {
   player: IReferral
+  index: number
 }
 
 interface FriendsListProps {
@@ -226,32 +179,51 @@ interface FriendsListProps {
 
 const FriendsList: FC<FriendsListProps> = (props) => {
   const { friends } = props
-  return <div className="mt-4 w-full flex flex-col gap-4 z-0">
-      {friends.map((friend, i) => <UserItem key={i} player={friend} />)}
+  return <div className="mx-1 mt-4 z-0">
+    <div className="friends-list flex flex-col">
+    <div className="overflow-x-auto">
+      <table className="table">
+      <thead>
+      <tr>
+        <th className="w-[10%]">№</th>
+        <th className="w-[50%]">Player</th>
+        <th className="w-[20%] text-center">Bonus</th>
+        <th className="w-[20%]"></th>
+      </tr>
+      </thead>
+      <tbody>
+        {friends.map((friend, i) => <UserItem key={i} player={friend} index={i} />)}
+      </tbody>
+      </table>
+    </div>
+    </div>
+   
   </div>
 }
 
 const UserItem: FC<UserItemProps> = (props) => {
-  const { player } = props
-  
-  return <div className="friends-description friends-slot 
-      h-[75px] flex flex-row 
-      items-center justify-between mx-2">
-      <div className="flex flex-row gap-4 items-center pl-2">
-          <img className="w-[55px] h-[55px] rounded-full" 
-          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt={player.username} />
-          <div className="flex flex-col items-start justify-between h-full">
-              <div className="sm-user-name">{player.username}</div>
-              <div className="sm-user-status pt-4">
-                  {`Active · ${player.balance}`}
-              </div>
-          </div>
-      </div>
-      
-      <div className="user-income flex flex-row gap-2 items-center justify-center pr-4">
-        + {player.incomePerHour}
-        <img className="w-6 h-6" src="/home/coin.png" alt="" />
-      </div>
-    </div>
+  const { player, index } = props
+
+  const [fullName, setFullName] = useState<string>("")
+  useEffect(() => {
+    const firstName = player.firstName || ""
+    const lastName = player.lastName || ""
+    setFullName(firstName + " " + lastName)
+  }, [player.firstName, player.lastName])
+
+  return  (
+  <tr className="friends-slot">
+    <th>{index + 1}</th>
+    <th>
+     <div className="font-bold">{fullName}</div>
+    </th>
+    <th className="flex flex-row gap-1 items-center justify-end">
+      <img className="w-5 h-5" src="/stats/coin.png" alt="" />
+      <div className="friend-slot-baunty">7.4K</div>
+    </th>
+    <th>
+      <div className="claim-btn btn-no-body p-1">claim</div>
+    </th>
+  </tr>)
 }
 

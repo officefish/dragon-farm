@@ -20,7 +20,7 @@ import { apiFetch } from "@/services/api"
 import useUpdateTasks from "@/hooks/api/useUpdateTasks"
 //import { useUpdateShop } from "@/hooks/api/useUpdateShop"
 //import useUpdateIncome from "@/hooks/api/useUpdateIncome"
-//import useUpdateReferrals from "@/hooks/api/useUpdateReferrals"
+import useUpdateReferrals from "@/hooks/api/useUpdateReferrals"
 //import { useAllQuestsInfo } from "@/hooks/api/useAllQuestsInfo"
 //import Daily from "@/pages/daily"
 
@@ -30,7 +30,7 @@ const Cabinet:FC = () => {
 
   //const { allQuestsInfo } = useAllQuestsInfo(apiFetch);
   //const { updateShop } = useUpdateShop(apiFetch);
-  //const { updateReferrals } = useUpdateReferrals(apiFetch, 1, 10);
+  const { updateReferrals } = useUpdateReferrals(apiFetch, 1, 10);
   //const { updateIncome } = useUpdateIncome(apiFetch)
   const { updateTasks } = useUpdateTasks(apiFetch) 
   
@@ -42,7 +42,7 @@ const Cabinet:FC = () => {
       //allQuestsInfo(),
       //updateShop(),
       //updateIncome(),
-      //updateReferrals(),
+      updateReferrals(),
       updateTasks()
       //
     ];
