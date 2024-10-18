@@ -1,0 +1,1033 @@
+/* Rubik Mono font */
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
+/* Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* SF Pro font */
+@font-face {
+  font-family: "SF Pro";
+  src: url("fonts/sf-pro-display/SFPRODISPLAYMEDIUM.OTF")
+}
+
+@tailwind base; 
+@tailwind components; 
+@tailwind utilities;
+
+* {
+  line-height: 1;
+}
+
+body {
+  /* background: var(currentColor); */
+  /* background-color: #EEEEEE; */
+  overflow-x: hidden;
+}
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  --tw-bg-opacity: 1;
+  /* background-color: #EEEEEE; */
+  /* background-color: rgb(14 14 13 / var(--tw-bg-opacity)) #0e0e0d; */
+}
+
+/* loaders */
+.coin-loader {
+  transform: translateZ(1px);
+}
+.coin-loader:after {
+  content: '$';
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  text-align: center;
+  line-height:40px;
+  font-size: 32px;
+  font-weight: bold;
+  background: #FFD700;
+  color: #DAA520;
+  border: 4px double ;
+  box-sizing: border-box;
+  box-shadow:  2px 2px 2px 1px rgba(0, 0, 0, .1);
+  animation: coin-flip 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+@keyframes coin-flip {
+  0%, 100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
+  }
+}
+      
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: flex;
+  color: orange;
+  background:
+    linear-gradient(currentColor 0 0) right  /51% 100%,
+    linear-gradient(currentColor 0 0) bottom /100% 51%;
+  background-repeat: no-repeat;
+  animation: l16-0 2s infinite linear .25s;
+}
+.loader::before{
+  content: "";
+  width: 50%;
+  height: 50%;
+  background: currentColor;
+  animation: l16-1 .5s infinite linear;
+}
+@keyframes l16-0 {
+  0%   ,12.49% {transform: rotate(0deg)}
+  12.5%,37.49% {transform: rotate(90deg)}
+  37.5%,62.49% {transform: rotate(180deg)}
+  62.5%,87.49% {transform: rotate(270deg)}
+  87.5%,100%   {transform: rotate(360deg)}
+}
+@keyframes l16-1 {
+  0%      {transform: perspective(80px) rotate3d(-1,-1,0,0)}
+  80%,100%{transform: perspective(80px) rotate3d(-1,-1,0,-180deg)}
+}
+
+.maincraft-bg {
+  background-image: url("/bg.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;  
+  background-attachment: fixed;
+}
+
+.bg-gradient {
+  background: linear-gradient(180deg, rgba(8, 12, 32, 0.9) 24.41%, rgba(17, 33, 43, 0.44) 55.65%, rgba(8, 19, 41, 0.76) 100%);
+}
+
+/* Preloader classes */
+.preloader-bg {
+  background-image: url("/brand/preloader-bg.png");
+  background-position: top;
+  background-repeat: no-repeat; 
+}
+.preloader-title-bg {
+  background-image: url("/brand/boris-title.png");
+  background-position: center;
+  background-repeat: no-repeat; 
+  width: 340px;
+  height: 112px;
+}
+.preloader-blur {
+  position: absolute;
+  bottom: -25px;
+  width: 500px;
+  height: 35%;
+  
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 12%, #000000 80%);
+  backdrop-filter: blur(3px);
+}
+
+.preloader-overlay {
+  width: 800px;
+  height: 35%;
+  backdrop-filter: blur(5px); /* Блюр */
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 12%, #000000 80%);
+
+}
+
+.preloader-overlay-bg {
+  position: absolute;
+  width: 500px;
+  height: 35%;
+  bottom: -25px;
+
+  background-image: url("/brand/preloader-overlay-bg.png");
+  background-position: center;
+}
+
+.text-sf-pro {
+  font-family: 'SF Pro', sans-serif;
+}
+
+.preloader-overlay:hover {
+  filter: blur(0px); /* Снятие блюра при наведении */
+  background: rgba(0, 0, 0, 0.8); /* Увеличение затемнения при наведении */
+}
+
+.stats-item {
+  color: white;
+}
+
+/* Stats classes */
+.stats-value {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.stats-type {
+  font-family: Roboto;
+  font-size: 10px;
+  font-weight: 300;
+  text-align: left;
+}
+
+.stats-green {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #3EBD1E 0%, #08B859 100%); 
+}
+
+.stats-white {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background: white; 
+}
+
+.stats-spacer {
+  width: 1px;
+  border: 1px solid #FEFFE0;
+}
+
+/* Navigation classes */
+
+.nav-item {
+  font-family: Roboto;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.nav-select {
+  background: linear-gradient(90deg, #BF8226 0%, #FFC163 100%);
+  border: 2px solid #695F1673;
+  color: black;
+}
+
+.nav-line {
+  width: 30px;
+  height: 4px;
+  border-radius: 2px;
+
+  background: #FFCC00;
+  box-shadow: 0px 0px 5.3px 0px #FFCC007A;
+}
+
+/* home */
+.fullname {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding-top: 12px;
+  padding-left: 8px; 
+  color: white; 
+}
+
+.username {
+  font-family: Roboto;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em; 
+  text-align: left;
+  padding-left: 8px;
+  padding-top: 8px;
+  color: white;
+  opacity: 40%;
+}
+
+.level-text {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: white;
+}
+
+/* Home conent */
+.home-bg {
+  background-image: url("/home/street-bg.png");
+  background-position: start;
+  background-repeat: no-repeat; 
+  width: 500px;
+  height: 80vh;
+}
+
+.home-btn {
+  height: 45px;
+  border-radius: 23.5px;
+  cursor: pointer;
+
+  font-family: Roboto;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: white;
+  opacity: 80%;
+  user-select: none;
+}
+.daily-bg {
+  background: linear-gradient(92.12deg, rgba(228, 255, 25, 0.37) -9.53%, rgba(255, 255, 255, 0.08) 103.34%);
+}
+
+.minigame-bg {
+  background: linear-gradient(92.12deg, rgba(255, 54, 54, 0.63) -9.53%, rgba(255, 255, 255, 0.08) 103.34%);
+}
+
+.income-bg {
+  background: linear-gradient(103.22deg, rgba(255, 255, 255, 0.3) -6.09%, rgba(153, 153, 153, 0) 123.32%);
+  border: 1px solid;
+  border-image-source: linear-gradient(98.26deg, rgba(255, 255, 255, 0.5) -9.85%, rgba(153, 153, 153, 0.5) 102.27%);  
+  backdrop-filter: blur(15.199999809265137px)
+}
+
+.home-spacer {
+  width: 0px;
+  height: 100%;
+  border: 1px solid #999999;
+}
+
+.home-gradient {
+  width: 511px;
+  height: 274px;
+  background: linear-gradient(180.16deg, rgba(0, 0, 0, 0) -12.48%, #000000 56.28%);
+}
+
+.home-energy {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: white;
+}
+
+.coin-power {
+  font-family: SF Pro;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: white;
+}
+
+.balance-label {
+  font-family: Roboto;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: white;
+  opacity: 100%;
+}
+
+/* Daily quest */
+
+.daily-quest-bg {
+  background-image: url("/daily/daily-bg.png");
+  background-position: left top;
+  background-repeat: no-repeat; 
+  width: 560px;
+  height: 560px;
+} 
+
+.daily-quest-modal {
+  width: 102%;
+  height: 100%;
+  border-radius: 20px 20px 0px 0px;
+  border: 2px solid #DFDC2B;
+  box-shadow: 3px -8px 17px 0px #DFDC2B80;
+  background: #000000;
+}
+
+.daily-title {
+  font-family: Roboto;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-align: center;
+
+  color: white;
+}
+
+.daily-description {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+
+  color: white;
+}
+
+.daily-grid-item {
+  width: 100%;
+  height: 128px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 100%);
+}
+
+
+.daily-grid-item-active {
+  position: relative;
+  width: 100%;
+  height: 128px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 100%);
+  overflow: hidden; /* Это нужно для обрезки псевдоэлемента */
+  border-top: 1px solid rgba(255, 246, 22, 0.74);  
+  z-index: 2;
+}
+
+
+.daily-grid-item-active::before {
+  content: '';
+  position: absolute;
+  top: -3px; /* Чтобы граница учитывалась внутри контейнера */
+  right: -3px;
+  bottom: -3px;
+  left: -3px;
+  border-radius: 20px; /* Совпадает с радиусом основного элемента */
+  padding: 3px; /* Толщина границы */
+  background: linear-gradient(180deg, rgba(255, 246, 22, 0.74) 0%, rgba(138, 133, 6, 0.35) 100%);
+  z-index: 1; /* Чтобы псевдоэлемент был под основным контентом */
+  opacity: 10%;
+}
+
+.daily-grid-item-title {
+  width: 100%;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color : white;
+}
+
+.daily-grid-item-price {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color : white;
+}
+
+.function-btn {
+  font-family: SF Pro;
+  width: 93%;
+  height: 70px;
+  min-width: 50px;
+  border-radius: 20px;
+  background-color: #DFDC2B;
+
+  font-family: SF Pro;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #000000;
+}
+
+/* Shop */
+/* .shop-balance {
+
+} */
+
+.shop-tabs {
+  height: 50px;
+  padding: 5px;
+  border-radius: 10px;
+  
+  background: #DFDC2B;
+}
+
+.shop-tab {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-align: center;
+  min-width: 80px;
+  height: 36px;
+  padding-top: 10px;
+
+  cursor: pointer;
+
+  /* border: #000000 1px solid; */
+
+  color: black;
+}
+
+.shop-tab-active {
+  background: #00000026;
+  border-radius: 10px;
+}
+
+.shop-card {
+  width: 190px;
+  height: 240px;
+  border-radius: 20px;
+  border: 1px;
+  border-top: rgba(255, 255, 255, 0.3) 1px solid;
+  /* border-image-source: linear-gradient(92.12deg, rgba(255, 255, 255, 0.3) -9.53%, rgba(255, 255, 255, 0.08) 103.34%); */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) -14.68%, rgba(255, 255, 255, 0) 118.25%);
+}
+
+.shop-card-purchased {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 100%);
+  overflow: hidden; /* Это нужно для обрезки псевдоэлемента */
+  border-top: 1px solid rgba(255, 246, 22, 0.74);  
+  /* z-index: 2; */
+}
+  
+  
+.shop-card-purchased::before {
+    content: '';
+    position: absolute;
+    top: -3px; /* Чтобы граница учитывалась внутри контейнера */
+    right: -3px;
+    bottom: -3px;
+    left: -3px;
+    border-radius: 20px; /* Совпадает с радиусом основного элемента */
+    padding: 3px; /* Толщина границы */
+    background: linear-gradient(180deg, rgba(255, 246, 22, 0.74) 0%, rgba(138, 133, 6, 0.35) 100%);
+    /* z-index: 1; Чтобы псевдоэлемент был под основным контентом */
+    opacity: 10%;
+}
+
+
+.shop-card-blocked {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
+
+.shop-card-title {
+  width: 100%;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 18.75px;
+  letter-spacing: 0.04em;
+  text-align: center;
+
+  color: white;
+}
+
+.shop-card-description {
+  width: 100%;
+  font-family: Roboto;
+  font-size: 10px;
+  font-weight: 200;
+  /* line-height: 11.72px; */
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: white;
+
+  opacity: 80%;
+}
+
+.shop-card-income {
+  font-family: Roboto;
+  font-size: 10px;
+  font-weight: 200;
+  /* line-height: 11.72px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: white;
+}
+
+.shop-card-income span {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 900;
+  /* line-height: 14.06px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: white;
+}
+
+.shop-card-footer { 
+  position: absolute;
+  bottom: 8px;
+  width: 190px;
+  text-align:center;
+
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 900;
+  /* line-height: 18.75px; */
+  letter-spacing: 0.04em;
+  color: white
+}
+
+.shop-spacer {
+  border-top: 1px solid #FFFFFF;
+  opacity: 30%;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Shop modal */
+.shop-modal {
+  width: 102%;
+  height: 100%;
+  border-radius: 20px 20px 0px 0px;
+  border: 2px solid #DFDC2B;
+  box-shadow: 3px -8px 17px 0px #DFDC2B80;
+  background: #000000;
+}
+
+.shop-dialog-title {
+  font-family: Roboto;
+  font-size: 28px;
+  font-weight: 900;
+  /* line-height: 22px; */
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: white;
+}
+
+.shop-dialog-description {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 200;
+  /* line-height: 18.75px; */
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: white;
+}
+
+.shop-dialog-income {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 200;
+  /* line-height: 18.75px; */
+  letter-spacing: 0.04em;
+  text-align: right;
+
+  color: white;
+}
+
+.shop-dialog-income span {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 900;
+/* line-height: 23.44px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+
+  color: white;
+}
+
+/* Tasks */
+.tasks-bg {
+  background-image: url("/tasks/tasks-bg.png");
+  background-position: left top;
+  background-blend-mode: normal;
+  background-repeat: no-repeat; 
+  width: 560px;
+  height: 260px;
+}
+
+.tasks-title {
+  font-family: Roboto;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+
+  color: white;
+}
+
+/* Tasks lists */
+.tasks-list-title {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 900;
+  /* line-height: 23.44px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: white;
+}
+
+.task-item {
+  height: 75px;
+  border-radius: 20px;
+
+  background: linear-gradient(0deg, #2A2A2A, #2A2A2A),
+  linear-gradient(78.2deg, rgba(0, 0, 0, 0) 54.1%, rgba(0, 255, 94, 0.4) 100%);
+  border: 1px solid;
+
+  border-image-source: linear-gradient(92.12deg, rgba(255, 255, 255, 0.3) -9.53%, rgba(255, 255, 255, 0.08) 103.34%),
+  linear-gradient(86.34deg, rgba(255, 255, 255, 0) 70.97%, #00FF5E 104.68%);  
+}
+
+.task-job {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 400;
+  /* line-height: 15.23px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+
+  color: white;
+}
+
+.task-baunty {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 900;
+  /* line-height: 23.44px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+
+  color: white;
+}
+
+.task-status-completed {
+  border-radius: 100px;
+  opacity: 0.71px;
+  background: #00FF5E;
+  box-shadow: 30px 30px 30px 30px #00FF5EFF,
+}
+
+.task-status-ready {
+  border-radius: 100px;
+  opacity: 0.71px;
+  background: #DFDC2B;
+  box-shadow: 30px 30px 30px 30px #DFDC2BFF,
+}
+
+/* Friends */
+
+.friends-title {
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+}
+
+.friends-description {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  color: #D6DEE7C2;  
+}
+
+.friends-banner {
+  width: 100%;
+  border-radius: 0 0 8px 8px;
+  backdrop-filter: blur(56px);
+  background: linear-gradient(90deg, #E3F8FA 0%, #EEFAFC 100%);
+}
+
+.friends-banner-title {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #0D1E32;
+}
+
+.friend-banner-baunty {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 300;
+  text-align: left;
+  color:#08B859;
+}
+
+.friend-banner-description {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  color: #1A2E46;
+}
+
+.friends-list-label {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+  color: #FFFBE9;
+}
+
+.no-friends-slot {
+  padding: 12px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(242, 249, 255, 0.89) 0%, rgba(236, 246, 252, 0.87) 100%);
+
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #0D1E32;
+}
+
+.invite-friends-btn {
+  padding: 15px 20px 15px 20px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #3C9BE9 0%, #254FB0 100%);
+  box-shadow: 0px 0px 16px 0px #4747D542;
+  box-shadow: 2px 2px 4px 0px #FFFFFF29 inset;
+  box-shadow: -2px -2px 4px 0px #130F0F1F inset;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #FFFBE9;
+}
+
+.friends-slot {
+  /* width: 414px; */
+  border-radius: 20px;
+
+  background: #2A2A2A;
+  border: 1px solid;
+  border-image-source: linear-gradient(92.12deg, rgba(255, 255, 255, 0.3) -9.53%, rgba(255, 255, 255, 0.08) 103.34%);
+}
+
+.friends-devider {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 900;
+  /* line-height: 23.44px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+
+  color: white;
+}
+
+.spacer {
+  border-bottom: 1px solid currentColor;
+  width: 90%;
+  margin-left: 5%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.sm-user-name {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 700;
+  /* line-height: 21.09px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+
+  color: white;
+}
+
+.sm-user-status {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 400;
+  /* line-height: 15.23px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+
+.user-income {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 400;
+  /* line-height: 15.23px; */
+  letter-spacing: 0.04em;
+  text-align: left;
+
+  color: white;
+}
+
+/* */
+.bg-glass {
+  /* From https://css.glass */
+  background: rgba(96, 26, 148, 0.2);
+  /* border-radius: 16px; */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(96, 26, 148, 0.3);
+
+  -webkit-transition: backdrop-filter 1000ms linear;
+  -ms-transition: backdrop-filter 1000ms linear;
+  transition: backdrop-filter 1000ms linear;
+}
+
+.modal-body {
+  background: #151515;
+  border-top: 1px solid currentColor;
+  box-shadow: 0px 0px 40px 0px currentColor;
+}
+
+.btn-close-dialog {
+  width: 64px;
+  height: 64px;
+  padding: 18px;
+  border-radius: 40px;
+  border: 0.82p;
+}
+
+.dialog-title {
+  font-family: Mulish;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 40.16px;
+  text-align: center;  
+}
+.dialog-baunty {
+  font-family: Mulish;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 40.16px;
+  text-align: center;
+  color: currentColor;
+}
+
+.dialog-description {
+  font-family: Mulish;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 25.1px;
+  text-align: center;
+}
+
+.dialog-btn {
+  width: 160px;
+  height: 40px;
+  padding: 10px 37px 10px 37px;
+  border-radius: 10px;
+  background: #8B68B7;
+  font-family: Mulish;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 25.1px;
+  text-align: left;
+}
+
+.minigame-title {
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 900;
+  /* line-height: 34px; */
+  letter-spacing: 0.04em;
+  text-align: center;
+
+  color: white;
+}
+
+.minigame-title span {
+  color: #DFDC2B;
+}
+
+.minigame-timer {
+  width: 138px;
+  height: 48px;
+  border-radius: 40px;
+
+  padding-top: 12px;
+  padding-right: 24px;
+
+  background: linear-gradient(92.12deg, rgba(255, 255, 255, 0.11) -9.53%, rgba(255, 255, 255, 0.06) 103.34%);
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 900;
+  /* line-height: 34px; */
+  letter-spacing: 0.04em;
+  text-align: right;
+  
+  color: white;
+}
+
+/* Puzzle styles */
+.puzzle {
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: repeat(4, 80px);
+  gap: 4px;
+}
+
+.tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  font-size: 24px;
+
+  border: transparent;
+
+  border-radius: 8px;
+  background: #222222;
+  /* background-color: var(--s); */
+  border: 2px solid var(--s);
+  cursor: pointer;
+}
+
+.tile.empty {
+  background-color: #FFF04F;
+  border: none;
+}
+
+.win-minigame-title {
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 900;
+  /* line-height: 34px; */
+  letter-spacing: 0.04em;
+  text-align: center;
+
+  color: white;
+}
+
+.congrats {
+  margin-top: 20px;
+  font-size: 24px;
+  color: green;
+}
+
+.btn-no-body {
+  cursor: pointer;
+}
+.btn-no-body:active {
+  transform: scale(0.95);
+}
+
+.btn-no-body:disabled,
+.btn-no-body[disabled] {
+  transform: scale(1);
+  cursor: not-allowed;
+}
+
+.offer-bg {
+  background-image: url("/offer/offer-bg.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover; 
+}
+
+.offer-title {
+  font-family: Roboto;
+  font-size: 28px;
+  font-weight: 700;
+  /* line-height: 32.81px; */
+  letter-spacing: 0.04em;
+  text-align: center;
+
+  color: white;
+}
