@@ -68,7 +68,7 @@ const Tasks: FC = () => {
   }
 
     return (
-      <div className="w-screen overflow-x-hidden">
+      <div className="w-screen overflow-x-hidden pb-20 tasks-list">
         <div className="pt-8">
           {dailyTasks.length > 0 && <TasksList 
              tasks={dailyTasks} 

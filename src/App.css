@@ -26,7 +26,7 @@ body {
   width: 100vw;
   height: 100vh;
   --tw-bg-opacity: 1;
-  /* background-color: #EEEEEE; */
+  background-color: #080319;
   /* background-color: rgb(14 14 13 / var(--tw-bg-opacity)) #0e0e0d; */
 }
 
@@ -642,6 +642,9 @@ body {
   height: 260px;
 }
 
+.tasks-list {
+  background-color: #080319;
+}
 
 .tasks-title {
   font-family: Roboto;
@@ -669,9 +672,13 @@ body {
   border-radius: 20px;
   border-radius: 8px;
   backdrop-filter: blur(56px);
-  background: linear-gradient(90deg, #4D89B2 0%, #334A79 100%);
+  background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(182, 160, 209, 0.2) 0%, rgba(188, 154, 231, 0.048) 77.08%, rgba(109, 47, 185, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
 
   border: 1px solid;
+  border-image-source: radial-gradient(80.38% 222.5% at -13.75% -12.36%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+  radial-gradient(80.69% 208.78% at 108.28% 112.58%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+
+  backdrop-filter: blur(12.156224250793457px);
  }
 
 .task-job {

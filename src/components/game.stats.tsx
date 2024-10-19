@@ -2,7 +2,7 @@ import { FC } from "react"
 
 const GameStats:FC = () => {
     return (
-        <div className="w-screen p-4 flex flex-row">
+        <div className="fixed w-screen p-4 flex flex-row z-10">
           <div className="w-[24%] flex flex-row gap-1">
             <img className="w-8 h-8" src="/stats/coin.png" alt="coin" />
             <div className="flex flex-col items-start justify-evenly stats-item pl-1">
