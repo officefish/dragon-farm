@@ -36,8 +36,8 @@ const Friends: FC = () => {
 
     if (referralsCode) {
       //console.log('code:', referralsCode)
-      const message = 'Помоги еноту построить оконную империю!'
-      const url = `https://t.me/Curt_Gedel_bot/windows_taps?startapp=referrerId=${referralsCode}`
+      const message = 'Dragon farm. Открывай сундуки дракона и получай награды!'
+      const url = `https://t.me/Minesweeper_demo_bot/MinesweeperDemo?startapp=referrerId=${referralsCode}`
       setReferralUrl(url)
       const tUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(message)}`;
       setTelegramUrl(tUrl)
