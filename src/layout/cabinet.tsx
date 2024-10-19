@@ -8,7 +8,7 @@ import { Route, Routes } from "react-router-dom"
 
 import Farm from "@/pages/farm"
 import Friends from "@/pages/friends"
-//import Tasks from "@/pages/tasks"
+import Tasks from "@/pages/tasks"
 //import Shop from "@/pages/shop"
 //import Offer from "@/pages/offer"
 
@@ -77,7 +77,7 @@ return (
         <Routes>
             <Route path='/' element={<Farm/>} />
             <Route path='/friends' element={<Friends/>} />
-            {/* <Route path='/tasks' element={<Tasks/>} /> */}
+            <Route path='/tasks' element={<Tasks/>} />
             {/* <Route path='/airdrop' element={<Airdrop/>} /> */}
             {/* <Route path='/shop' element={<Shop/>} /> */}
         </Routes>

@@ -69,18 +69,13 @@ const Tasks: FC = () => {
 
     return (
       <div className="w-screen overflow-x-hidden">
-        <div className="absolute tasks-bg top-[-80px] z-0"></div>
-        <div className="w-screen flex items-center h-36 mt-6">
-          <img src="/tasks/coin.png" alt="" />
-        </div>
-        <div className="w-screen tasks-title">Заработайте больше монет!</div>
         <div className="pt-8">
           {dailyTasks.length > 0 && <TasksList 
              tasks={dailyTasks} 
              onTaskCLicked={handleTaskClick} 
            />}
         </div> 
-        <div className="tasks-list-title mt-2 pl-4 pb-1">Сезонные задания:</div>
+        {/* <div className="tasks-list-title mt-2 pl-4 pb-1">Сезонные задания:</div> */}
           {seasonTasks.length > 0 && <TasksList 
              tasks={seasonTasks} 
              onTaskCLicked={handleTaskClick}
@@ -110,7 +105,7 @@ interface TaskListsProps {
 
 const TasksList : FC<TaskListsProps> = (props) => {
   const { tasks, onTaskCLicked } = props
-  return <div className="mt-2 px-4 w-full flex flex-col gap-4">
+  return <div className="mt-2 px-2 w-full flex flex-col gap-2">
       {tasks.map((task, index) => <TaskItem 
           key={index} 
           task={task} 
@@ -142,14 +137,14 @@ const TaskItem : FC<TaskItemProps> = (props) => {
     flex flex-row 
     items-center justify-between
     task-item`}>
-      <div className="flex flex-row gap-2 items-center justify-center">
-          <div className="w-[80px] h-[60px] flex items-center justify-center pl-4">
+      <div className="flex flex-row gap-2 items-center justify-start">
+          <div className="flex items-center justify-center pl-2 w-24">
               <Icon type={task.templateTask.type} />
           </div>
-          <div className="flex flex-col items-start justify-center gap-2">
-              <div className="task-job">{title}</div>
-              <div className="task-baunty flex flex-row gap-3">
-                <img className="w-[18px] h-[18px]" src="/home/coin.png" alt="" />
+          <div className="flex flex-col items-start justify-center gap-2 pl-2">
+              <div className="task-job w-48">{title}</div>
+              <div className="task-baunty flex flex-row items-center justify-center gap-3">
+                <img className="w-8 h-8" src="/tasks/cute-coin.png" alt="" />
                 <span>+{baunty}</span>
               </div>
           </div>
@@ -182,11 +177,11 @@ const TaskStatusWidget:FC<TaskStatusProps> = (props) => {
     </div>)
     case "IN_PROGRESS": return (
       <div className="w-8 h-8 flex items-center justify-center pr-2">
-        <img className="w-4 h-4" src="/tasks/vector.png" alt="check" />
+        <img className="w-4 h-4" src="/tasks/chevron_right_16.svg" alt="check" />
       </div>)
     case "PENDING": return (
       <div className="w-8 h-8 flex items-center justify-center pr-2">
-        <img className="w-4 h-4" src="/tasks/vector.png" alt="check" />
+        <img className="w-4 h-4" src="/tasks/chevron_right_16.svg" alt="check" />
       </div>)
   }
 }
@@ -213,5 +208,5 @@ const Icon:FC<GetIconProps> = (props) => {
       default:
         src = 'tasks/telegram.png'
   }
-  return <img className="w-[54px] h-[54px]" src={src} alt="icon" />
+  return <img className="w-[80px] h-[80px]" src={src} alt="icon" />
 }

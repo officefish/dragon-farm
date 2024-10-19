@@ -642,6 +642,7 @@ body {
   height: 260px;
 }
 
+
 .tasks-title {
   font-family: Roboto;
   font-size: 28px;
@@ -655,8 +656,8 @@ body {
 /* Tasks lists */
 .tasks-list-title {
   font-family: Roboto;
-  font-size: 20px;
-  font-weight: 900;
+  font-size: 18px;
+  font-weight: 700;
   /* line-height: 23.44px; */
   letter-spacing: 0.04em;
   text-align: left;
@@ -664,16 +665,14 @@ body {
 }
 
 .task-item {
-  height: 75px;
+  height: 96px;
   border-radius: 20px;
+  border-radius: 8px;
+  backdrop-filter: blur(56px);
+  background: linear-gradient(90deg, #4D89B2 0%, #334A79 100%);
 
-  background: linear-gradient(0deg, #2A2A2A, #2A2A2A),
-  linear-gradient(78.2deg, rgba(0, 0, 0, 0) 54.1%, rgba(0, 255, 94, 0.4) 100%);
   border: 1px solid;
-
-  border-image-source: linear-gradient(92.12deg, rgba(255, 255, 255, 0.3) -9.53%, rgba(255, 255, 255, 0.08) 103.34%),
-  linear-gradient(86.34deg, rgba(255, 255, 255, 0) 70.97%, #00FF5E 104.68%);  
-}
+ }
 
 .task-job {
   font-family: Roboto;
@@ -688,13 +687,16 @@ body {
 
 .task-baunty {
   font-family: Roboto;
-  font-size: 20px;
-  font-weight: 900;
+  font-size: 16px;
+  font-weight: 700;
   /* line-height: 23.44px; */
   letter-spacing: 0.04em;
   text-align: left;
-
-  color: white;
+  
+  background: -webkit-linear-gradient(#BF8226, #FFC163);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .task-status-completed {
