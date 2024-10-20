@@ -190,11 +190,29 @@ interface GetIconProps {
   type: string
 }
 
+/*
+SUBSCRIBE_CHANNEL
+INVITE_COUNT
+INVITE_PREMIUM_COUNT
+INVITE_EVERY_DAY
+DAILY_BAUNTY
+DAILY_MINIGAME
+TAPS_COUNT
+DAILY_GAMEPLAY_ACTION
+DAILY_TON_CHECKIN
+CONNECT_WALLET
+MAKE_TEST_TRANSACTION
+BYBIT_REGISTRATION
+BYBIT_DEPOSIT
+BYBIT_KYC
+SHARE_STORY
+*/
+
 const Icon:FC<GetIconProps> = (props) => {
   let src
   switch (props.type) {
       case 'DAILY_BAUNTY':
-        src = 'tasks/daily-quest.png'
+        src = 'tasks/log-in.png'
         break
       case 'DAILY_MINIGAME':
         src = 'tasks/daily-quest.png'
@@ -205,6 +223,22 @@ const Icon:FC<GetIconProps> = (props) => {
       case 'SUBSCRIPE_CHANNEL':
         src = 'tasks/telegram.png'
         break
+      case 'DAILY_GAMEPLAY_ACTION':
+        src = 'tasks/key.png'
+        break
+      case 'BYBIT_DEPOSIT':
+      case 'BYBIT_KYC':
+      case 'BYBIT_REGISTRATION':
+        src = 'tasks/bybit.png'
+        break;
+      case 'SHARE_STORY':
+        src = 'tasks/story.png'
+        break;
+      case 'DAILY_TON_CHECKIN':
+      case 'CONNECT_WALLET':
+      case 'MAKE_TEST_TRANSACTION':
+        src = 'tasks/ton.png'
+        break;    
       default:
         src = 'tasks/telegram.png'
   }
