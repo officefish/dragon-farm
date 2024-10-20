@@ -424,18 +424,23 @@ body {
 }
 
 .function-btn {
-  font-family: SF Pro;
-  width: 93%;
-  height: 70px;
-  min-width: 50px;
-  border-radius: 20px;
-  background-color: #DFDC2B;
-
-  font-family: SF Pro;
-  font-size: 24px;
-  font-weight: 600;
+  height: 62px;
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 8px;
   text-align: center;
-  color: #000000;
+  background: linear-gradient(180deg, #3C9BE9 0%, #254FB0 100%);
+  box-shadow: 0px 0px 16px 0px #4747D542;
+  box-shadow: 2px 2px 4px 0px #FFFFFF29 inset;
+  box-shadow: -2px -2px 4px 0px #130F0F1F inset;
+  
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 600;
+  /* line-height: 17.92px; */
+  text-align: center;
+  color: #FFFBE9;
 }
 
 /* Shop */
@@ -592,12 +597,24 @@ body {
 
 .shop-dialog-title {
   font-family: Roboto;
-  font-size: 28px;
-  font-weight: 900;
-  /* line-height: 22px; */
-  letter-spacing: 0.04em;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
   text-align: center;
-  color: white;
+  background: -webkit-linear-gradient(180deg, #E9EEFF 0%, rgba(255, 255, 255, 0.68) 93.95%, rgba(255, 255, 255, 0) 156.58%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.shop-dialog-description {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  /* line-height: 16.8px; */
+  text-align: center;
+  color: #D6DEE7;
+  opacity: 75%;
 }
 
 .shop-dialog-description {
@@ -718,6 +735,11 @@ body {
   opacity: 0.71px;
   background: #DFDC2B;
   box-shadow: 30px 30px 30px 30px #DFDC2BFF,
+}
+
+.task-modal {
+  background: linear-gradient(180deg, #0B2538 0%, #0A1125 100%);
+  border-radius: 20px 20px 0 0;
 }
 
 /* Friends */
