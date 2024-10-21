@@ -21,6 +21,7 @@ import useUpdateTasks from "@/hooks/api/useUpdateTasks"
 //import { useUpdateShop } from "@/hooks/api/useUpdateShop"
 //import useUpdateIncome from "@/hooks/api/useUpdateIncome"
 import useUpdateReferrals from "@/hooks/api/useUpdateReferrals"
+import Airdrop from "@/pages/airdrop"
 //import { useAllQuestsInfo } from "@/hooks/api/useAllQuestsInfo"
 //import Daily from "@/pages/daily"
 
@@ -78,7 +79,7 @@ return (
             <Route path='/' element={<Farm/>} />
             <Route path='/friends' element={<Friends/>} />
             <Route path='/tasks' element={<Tasks/>} />
-            {/* <Route path='/airdrop' element={<Airdrop/>} /> */}
+            <Route path='/airdrop' element={<Airdrop/>} />
             {/* <Route path='/shop' element={<Shop/>} /> */}
         </Routes>
       </Content>

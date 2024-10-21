@@ -3,6 +3,7 @@ import { SiteProvider } from "./store"
 import { UserProvider } from "./user"
 import { TapsProvider } from "./tap"
 import { SnackbarProvider } from "notistack"
+import { TonClientProvider } from "./ton"
 
 const Providers: FC <PropsWithChildren> = ({ children }) => {
     return (
@@ -12,7 +13,9 @@ const Providers: FC <PropsWithChildren> = ({ children }) => {
             <SiteProvider>
                 <UserProvider>
                     <TapsProvider>
-                        {children}
+                        <TonClientProvider>
+                            {children}
+                        </TonClientProvider>
                     </TapsProvider>
                 </UserProvider>
             </SiteProvider>
