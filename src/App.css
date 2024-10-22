@@ -97,6 +97,41 @@ body {
   80%,100%{transform: perspective(80px) rotate3d(-1,-1,0,-180deg)}
 }
 
+.loader-progress{
+  display: block;
+  position: relative;
+  height: 12px;
+  width: 80%;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.loader-progress:after{
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+
+  background: #BF8226;
+  
+  animation: 2.3s prog ease-in infinite;
+}
+
+@keyframes prog {
+  to  { width: 100%;}
+}
+
+
+.loader-bg {
+  background-image: url("loader/bg.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;  
+  background-attachment: fixed;
+}
+
 .maincraft-bg {
   background-image: url("/bg.png");
   background-position: top;
