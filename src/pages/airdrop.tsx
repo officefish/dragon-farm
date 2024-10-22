@@ -1,6 +1,6 @@
 
-import ReactJson from 'react-json-view';
-import { Cell } from '@ton/core';
+//import ReactJson from 'react-json-view';
+//import { Cell } from '@ton/core';
 
 import { useSiteStore } from '@/providers/store';
 import { Page } from '@/types';
@@ -67,11 +67,11 @@ const Airdrop:FC = () => {
 export default Airdrop;
 
 const TxForm = () => {
-    const [tx, setTx] = useState(defaultTx);
+    const [tx, ] = useState(defaultTx);
 	const wallet = useTonWallet();
 	const [tonConnectUi] = useTonConnectUI();
 
-	const onChange = useCallback((value: object) => setTx((value as { updated_src: typeof defaultTx }).updated_src), []);
+	//const onChange = useCallback((value: object) => setTx((value as { updated_src: typeof defaultTx }).updated_src), []);
 
     const sendTransaction = useCallback(async () => {
         //await tonConnectUi.sendTransaction(tx);
@@ -85,9 +85,9 @@ const TxForm = () => {
         //console.log('Transaction hash:', transactionHash);
 
         if (result && result.boc) {
-            const cell = Cell.fromBase64(result.boc)
-            const buffer = cell.hash();
-            const hashHex = buffer.toString('hex');     
+            //const cell = Cell.fromBase64(result.boc)
+            //const buffer = cell.hash();
+            //const hashHex = buffer.toString('hex');     
         }
 
        
