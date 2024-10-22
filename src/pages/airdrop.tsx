@@ -1,9 +1,10 @@
 
 import ReactJson from 'react-json-view';
+import { Cell } from '@ton/core';
 
 import { useSiteStore } from '@/providers/store';
 import { Page } from '@/types';
-import { SendTransactionRequest, useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
+import { SendTransactionRequest, SendTransactionResponse, useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 import { 
     FC, 
     useCallback, 
@@ -72,20 +73,118 @@ const TxForm = () => {
 
 	const onChange = useCallback((value: object) => setTx((value as { updated_src: typeof defaultTx }).updated_src), []);
 
+    const sendTransaction = useCallback(async () => {
+        //await tonConnectUi.sendTransaction(tx);
+        const result: SendTransactionResponse = await tonConnectUi.sendTransaction(tx)
+        console.log(result)
+
+        // Optionally, track the transaction status using a transaction hash
+        //const transactionHash = result.boc;
+
+        // You can now monitor the blockchain or explorer for confirmation
+        //console.log('Transaction hash:', transactionHash);
+
+        if (result && result.boc) {
+            const cell = Cell.fromBase64(result.boc)
+            const buffer = cell.hash();
+            const hashHex = buffer.toString('hex');     
+        }
+
+       
+        // hashHex: 57123dffb9029bdaa9187b5d035737eea94a1b8c018e2ab1885f245eb95c6e30
+        // const hashBase64 = buffer.toString('base64');
+
+        // https://tonapi.io/v2/blockchain/transactions/57123dffb9029bdaa9187b5d035737eea94a1b8c018e2ab1885f245eb95c6e30
+
+    }, []);
    
     return (
-        <div className='w-full'>
-           <div className="send-tx-form">
-                <h3>Configure and send transaction</h3>
-                <ReactJson src={defaultTx} theme="ocean" onEdit={onChange} onAdd={onChange} onDelete={onChange} />
-                {wallet ? (
-                    <button onClick={() => tonConnectUi.sendTransaction(tx)}>
-                        Send transaction
-                    </button>
-                ) : (
-                    <button onClick={() => tonConnectUi.openModal()}>Connect wallet to send the transaction</button>
-                )}
+        <div className='overflow-x-hidden pb-20 tasks-list'>
+           
+            <div className='mt-8'>
+                <img className='px-2 w-full' src="/airdrop/banner.png" alt="banner" />
             </div>
+            <div className='shop-dialog-title mt-4 uppercase !text-left px-2'>Airdrop</div>
+            <div className='mt-3 shop-dialog-description !text-left px-2'>
+                By connecting your Ton Wallet, you can participate in the airdrop and receive rewards directly into your wallet.
+            </div>
+            <div className='mt-4 airdrop-conditions px-2'>
+                To join the airdrop, follow these steps:      
+            </div>
+            <div className='
+            mt-3 flex items-center justify-between px-4'>
+                <span className={`${wallet ? 'airdrop-conditions-disabled' : 'airdrop-conditions'}`}>1. Connect your Ton Wallet.</span>  
+                {wallet &&<img src="/airdrop/checked.png" alt="checked" />}  
+            </div>
+            <div className='mt-4'>
+                <div 
+                onClick={() => tonConnectUi.openModal()}
+                className={`
+                uppercase 
+                flex flex-row items-center 
+                justify-center gap-2
+                ${wallet ? 'function-btn-disabled' : 'function-btn btn-no-body'}
+                `}>
+                    Connect wallet
+                    <img className='w-8 h-8' src="/airdrop/wallet.png" alt="" />
+                </div>
+            </div>
+
+            <div className='
+            mt-4 flex items-center justify-between px-4'>
+                <span className={`airdrop-conditions`}>2. Make an upproval transaction.</span>  
+                {/* <span className={`${wallet ? 'airdrop-conditions-disabled' : 'airdrop-conditions'}`}>1. Connect your Ton Wallet.</span>   */}
+                {/* {wallet &&<img src="/airdrop/checked.png" alt="checked" />}   */}
+            </div>
+            <div className='mt-4'>
+                {/* <div className={`
+                uppercase 
+                flex flex-row items-center 
+                justify-center gap-2
+                ${wallet ? 'function-btn-disabled' : 'function-btn btn-no-body'}
+                `}>
+                    Connect wallet
+                    <img className='w-8 h-8' src="/airdrop/wallet.png" alt="" />
+                </div> */}
+                <div
+                onClick={sendTransaction}
+                className={`
+                uppercase 
+                flex flex-row items-center 
+                justify-center gap-2
+                function-btn btn-no-body
+                `}>
+                    Make transaction 0.05 TON
+                    <img className='w-8 h-8' src="/airdrop/wallet.png" alt="" />
+                </div> 
+            </div>
+
+            <div className='
+            mt-4 flex items-center justify-between px-4'>
+                <span className={`airdrop-conditions`}>3. Wait for the airdrop rewards to be distributed!</span>  
+            </div>
+
+            <div className='mt-6 airdrop-conditions px-2'>
+                What will affect the amount of tokens you receive?      
+            </div>
+
+            <ul className='mt-3 shop-dialog-description !text-left pl-8 list-disc'>
+                <li>Your current income in the game.</li>
+                <li>Your activity and engagement in the game.</li>
+                <li>The number of friends you invite to the game.</li>      
+            </ul>
+
+            <div className='mt-4 airdrop-conditions px-2'>
+                The more you interact with the game and share it with others, the higher your token rewards will be!     
+            </div>
+
+            <div className='mt-3 shop-dialog-description !text-left px-2'>
+            Once you’ve received your tokens, you’ll be able to exchange them on popular exchanges such as OKX and ByBit for USDT (Tether). Keep an eye on the airdrop page for updates and detailed instructions on how to exchange your tokens.            
+            </div>
+
+         
+            {/* <ReactJson src={defaultTx} theme="ocean" onEdit={onChange} onAdd={onChange} onDelete={onChange} /> */}
         </div>
+        
     )
 }

@@ -443,6 +443,29 @@ body {
   color: #FFFBE9;
 }
 
+.function-btn-disabled {
+  height: 62px;
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 8px;
+  text-align: center;
+  background: linear-gradient(180deg, #3C9BE9 0%, #254FB0 100%);
+  box-shadow: 0px 0px 16px 0px #4747D542;
+  box-shadow: 2px 2px 4px 0px #FFFFFF29 inset;
+  box-shadow: -2px -2px 4px 0px #130F0F1F inset;
+  
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 600;
+  /* line-height: 17.92px; */
+  text-align: center;
+  color: #FFFBE9;
+
+  cursor: not-allowed;
+  opacity: 25%;
+}
+
 /* Shop */
 /* .shop-balance {
 
@@ -1099,4 +1122,26 @@ body {
   text-align: center;
 
   color: white;
+}
+
+.airdrop-conditions {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+
+  background: -webkit-linear-gradient(180deg, #E9EEFF 0%, rgba(255, 255, 255, 0.68) 93.95%, rgba(255, 255, 255, 0) 156.58%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.airdrop-conditions-disabled {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+
+  color:#FFFBE9;
+  opacity: 30%;
 }
