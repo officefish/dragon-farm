@@ -90,20 +90,20 @@ const Friends: FC = () => {
     }
   }, [])
 
+
   return (
-    <div className="w-full pt-4">
+    <div  className="overflow-x-hidden pb-20 tasks-list z-0"> 
         {/* Friends header */}
-        <div className="w-full">
-          <div className="friends-title">INVITE FRIENDS</div>
-          <div className="friends-description pt-3">You and your friend will get bonus</div>
+        <div className='shop-dialog-title mt-8 uppercase px-2'>INVITE FRIENDS!</div>
+        <div className='mt-3 shop-dialog-description px-2'>
+        You and your friend will get bonus
         </div>
         {/* Friends banner */}
         <div className="pt-4 mx-1">
-          <img className="w-full" src="/friends/friends.png" alt="friends" />
           <div className="friends-banner flex flex-row items-center justify-between py-2">
-            <div className="flex flex-col items-center w-full gap-2">
+            <div className="flex flex-col items-center w-full gap-3">
               <div className="
-              w-full text-center friends-banner-title px-4">Invite<br/>friend</div>
+              w-full text-center friends-banner-title px-4">Telegram</div>
               <div className="friend-banner-baunty flex flex-row 
               items-center justify-center gap-1">
                 <img className="w-5 h-5" src="/stats/coin.png" alt="" />
@@ -112,7 +112,7 @@ const Friends: FC = () => {
               <div className="friend-banner-description w-full">both for you and your friend</div>
             </div>
             <div className="h-[72px] flex flex-col items-center w-full gap-2">
-              <div className="w-full text-center friends-banner-title px-4">Invite friend<br />Telegram Premium</div>
+              <div className="w-full text-center friends-banner-title px-4">Telegram Premium</div>
               <div className="friend-banner-baunty flex flex-row 
               items-center justify-center gap-1">
                 <img className="w-5 h-5" src="/stats/coin.png" alt="" />

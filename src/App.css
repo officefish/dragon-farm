@@ -787,9 +787,18 @@ body {
 
 .friends-banner {
   width: 100%;
-  border-radius: 0 0 8px 8px;
+  border-radius: 8px;
+  padding-top: 12px;
+  padding-bottom: 12PX;
+  background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(182, 160, 209, 0.2) 0%, rgba(188, 154, 231, 0.048) 77.08%, rgba(109, 47, 185, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  border: 1px solid #EEFAFC;
+
   backdrop-filter: blur(56px);
-  background: linear-gradient(90deg, #E3F8FA 0%, #EEFAFC 100%);
+
+  /* border-image-source: radial-gradient(80.38% 222.5% at -13.75% -12.36%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) warning: gradient uses a rotation that is not supported by CSS and may not behave as expected, */
+  /* radial-gradient(80.69% 208.78% at 108.28% 112.58%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) warning: gradient uses a rotation that is not supported by CSS and may not behave as expected; */
+  
+  /* backdrop-filter: blur(12.15);   */
 }
 
 .friends-banner-title {
@@ -797,7 +806,11 @@ body {
   font-size: 14px;
   font-weight: 600;
   text-align: center;
-  color: #0D1E32;
+
+  background: -webkit-linear-gradient(180deg, #E9EEFF 0%, rgba(255, 255, 255, 0.68) 93.95%, rgba(255, 255, 255, 0) 156.58%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .friend-banner-baunty {
@@ -813,7 +826,11 @@ body {
   font-size: 12px;
   font-weight: 400;
   text-align: center;
-  color: #1A2E46;
+
+  background: -webkit-linear-gradient(180deg, #E9EEFF 0%, rgba(255, 255, 255, 0.68) 93.95%, rgba(255, 255, 255, 0) 156.58%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .friends-list-label {
