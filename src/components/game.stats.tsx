@@ -11,24 +11,24 @@ const GameStats:FC = () => {
             </div>
           </div>
           <div className="stats-spacer mx-1 my-2 opacity-60"></div>
-          <div className="w-[31%] flex flex-row gap-1 items-center">
+          <div className="w-[31%] flex flex-row gap-2 items-center">
             <img className="w-8 h-8" src="/stats/usdt.png" alt="coin" />
             <div className="flex flex-col items-start justify-evenly stats-item pl-1">
               <div className="stats-value">10.03</div>
               <div className="stats-type uppercase">usdt</div>
             </div>
-            <div className="ml-2 stats-green"></div>
+            <img className="w-5 h-5" src="/stats/wallet.png" alt="plus usdt" />
           </div>
           <div className="stats-spacer mx-1 my-2 opacity-60"></div>
-          <div className="w-[31%] flex flex-row gap-1 items-center">
+          <div className="w-[31%] flex flex-row gap-2 items-center">
             <img className="w-8 h-8" src="/stats/farm.png" alt="coin" />
             <div className="flex flex-col items-start justify-evenly stats-item pl-1">
               <div className="stats-value">1000</div>
               <div className="stats-type uppercase">open</div>
             </div>
-            <div className="ml-2 stats-green"></div>
+            <img className="w-5 h-5" src="/stats/plus.png" alt="plus coin" />
           </div>
-          <div className="ml-2 stats-white"></div>
+          <img className="w-8 h-8" src="/stats/menu.png" alt="plus coin" />
         </div>        
     )
 }
