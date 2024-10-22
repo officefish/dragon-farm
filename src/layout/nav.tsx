@@ -8,14 +8,15 @@ const Navigation: FC = () => {
   const { page } = useSiteStore()
 
     return <div className="
-    grid grid-cols-5
-    mx-2  
+    grid grid-cols-4
+    mx-2 
+    pb-2 
     z-50">
       <NavButton selected={page === Page.AIRDROP} to={'/airdrop'} title={'Airdrop'} index={0}/>
-      <NavButton selected={page === Page.SHOP} to={'/shop'} title={'Shop'} index={1}/>
-      <NavButton selected={page === Page.FARM} to={'/'} title={'Farm'} index={2}/>
-      <NavButton selected={page === Page.TASKS} to={'/tasks'} title={'Tasks'} index={3} />
-      <NavButton selected={page === Page.FRIENDS} to={'/friends'} title={'Friends'} index={4} />
+      {/* <NavButton selected={page === Page.SHOP} to={'/shop'} title={'Shop'} index={1}/> */}
+      <NavButton selected={page === Page.FARM} to={'/'} title={'Farm'} index={1}/>
+      <NavButton selected={page === Page.TASKS} to={'/tasks'} title={'Tasks'} index={2} />
+      <NavButton selected={page === Page.FRIENDS} to={'/friends'} title={'Friends'} index={3} />
     </div>
 }
 export default Navigation

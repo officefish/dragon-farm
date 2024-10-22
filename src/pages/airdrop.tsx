@@ -99,7 +99,7 @@ const TxForm = () => {
     }, []);
    
     return (
-        <div className='overflow-x-hidden pb-20 tasks-list'>
+        <div className='overflow-x-hidden pb-20 tasks-list z-0'>
            
             <div className='mt-8'>
                 <img className='px-2 w-full' src="/airdrop/banner.png" alt="banner" />
