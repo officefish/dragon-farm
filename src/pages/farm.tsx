@@ -31,7 +31,7 @@ const Farm: FC = () => {
         
         </div>
       </div>
-      <div className="w-full mt-4 px-2">
+      <div className="w-full absolute bottom-20 px-2">
         <img className="w-full" src="farm/row.png" alt="" />
       </div>
     </div>
