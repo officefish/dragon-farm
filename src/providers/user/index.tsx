@@ -3,7 +3,6 @@ import { createStore, StoreApi, useStore } from 'zustand'
 import { createContext } from 'react' // from 'zustand/context'
 import { IUserState, IUserActions } from './types'
 import { ITask, IPlayer, IDailyQuest, IMinigame, ICategory, IReferral } from '../../types'
-import { getUpdatePrice } from '@/services/game.service'
 
 type IUserStore = IUserState & IUserActions
 
