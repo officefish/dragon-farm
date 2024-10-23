@@ -35,11 +35,10 @@ const Tasks: FC = () => {
 
   const handleTaskClick = (task: ITask) => {
       setCurrentTask(task)
-
       if (task.status === "READY") {
-          setIsReadyDialogOpen(true)
-      } else {
-          setIsPendingDialogOpen(true)
+        setIsReadyDialogOpen(true)
+      } else if (task.status === "PENDING" || task.status === "IN_PROGRESS") {
+        setIsPendingDialogOpen(true)
       }
   }
 
@@ -132,6 +131,7 @@ const TaskItem : FC<TaskItemProps> = (props) => {
 
   return <div onClick={handleTaskClick} 
   className={`
+    ${task.status === "COMPLETED" ? "opacity-80 grayscale" : "grayscale-0"}
     btn-no-body 
     w-full 
     flex flex-row 
@@ -166,14 +166,12 @@ const TaskStatusWidget:FC<TaskStatusProps> = (props) => {
 
   switch (status) {
     case "COMPLETED": return (
-      <div className="w-12 h-12 flex items-start justify-center">
-        {/* <img className="w-6 h-6" src="/icons/png/check.png" alt="check" /> */}
-        <div className="w-4 h-4 task-status-completed"></div>
+      <div className="w-20 h-full flex items-start justify-center pr-4">
+        {/* <img className="w-[57px] h-6" src="/tasks/button.png" alt="check" /> */}
       </div>)
     case "READY": return (
-      <div className="w-12 h-12 flex items-start justify-center">
-      {/* <img className="w-6 h-6" src="/icons/png/check.png" alt="check" /> */}
-      <div className="w-4 h-4 task-status-ready"></div>
+      <div className="w-20 h-full flex items-start justify-center pr-4">
+        <img className="w-[57px] h-6" src="/tasks/button.png" alt="check" />
     </div>)
     case "IN_PROGRESS": return (
       <div className="w-8 h-8 flex items-center justify-center pr-2">

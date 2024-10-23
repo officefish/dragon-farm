@@ -39,7 +39,7 @@ const GameStats:FC = () => {
         <img className="w-8 h-8" src="/stats/farm.png" alt="coin" />
         <div className="flex flex-col items-start justify-evenly stats-item pl-1">
           <div className="stats-value">{numKeys}</div>
-          <div className="stats-type uppercase">open</div>
+          <div className="stats-type uppercase">keys</div>
         </div>
         <img className="w-5 h-5" src="/stats/plus.png" alt="plus coin" />
       </div>
