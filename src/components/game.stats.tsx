@@ -1,4 +1,4 @@
-import useUpdateInvoice from "@/hooks/api/useUpdateInvoice"
+import useUpdateTotalBalance from "@/hooks/api/useUpdateTotalBalance"
 import { useUserStore } from "@/providers/user"
 import { apiFetch } from "@/services/api"
 import { FC, useEffect } from "react"
@@ -10,8 +10,10 @@ const GameStats:FC = () => {
   const usdt = player?.usdt || 0
   const numKeys = player?.numKeys || 0
 
+  const { updateTotalBalance } = useUpdateTotalBalance(apiFetch)
+
   useEffect(() => {
-    useUpdateInvoice(apiFetch)
+    updateTotalBalance()
   }, [])
 
   return (

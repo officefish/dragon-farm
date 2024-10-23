@@ -2,29 +2,29 @@ import { useCallback } from 'react';
 import { useSnackbar } from 'notistack'; // Assuming you're using notistack for notifications
 import { useUserStore } from '@/providers/user';
 
-const useUpdateInvoice = (apiFetch: any) => {
+const useUpdateTotalBalance = (apiFetch: any) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { updatePlayerInvoice } = useUserStore();
 
-  const updateIncome = useCallback(
+  const updateTotalBalance = useCallback(
     async () => {
       try {
-        const res = await apiFetch('/player/invoice', 'GET', enqueueSnackbar);
+        const res = await apiFetch('/player/balance/all', 'GET', enqueueSnackbar);
         console.log(res);        
         
         updatePlayerInvoice(res.balance, res.usdt, res.numKeys);
        
       } catch (error) {
-        console.error('Error updating user income per hour, ', error);
-        enqueueSnackbar('Error updating user income per hour', { variant: 'error' });
+        console.error('Error updating user balance (invoice) ', error);
+        enqueueSnackbar('Error updating user balance (invoice)', { variant: 'error' });
       } 
       return null;
     },
     [apiFetch, enqueueSnackbar] // Dependencies
   );
 
-  return { updateIncome };
+  return { updateTotalBalance };
 };
 
-export default useUpdateInvoice;
+export default useUpdateTotalBalance;
