@@ -3,6 +3,7 @@ import { createStore, StoreApi, useStore } from 'zustand'
 import { createContext } from 'react' // from 'zustand/context'
 import { IUserState, IUserActions } from './types'
 import { ITask, IPlayer, IDailyQuest, IMinigame, ICategory, IReferral } from '../../types'
+import { getUpdatePrice } from '@/services/game.service'
 
 type IUserStore = IUserState & IUserActions
 
@@ -15,8 +16,18 @@ const createUserStore = () =>
         return ({
           player: {
             ...state.player, // Preserve the other properties of the player
+            balance, 
+          },
+        })
+      }),
+    updatePlayerInvoice: (balance: number, usdt: number, numKeys: number) =>
+      set((state) => {
+        return ({
+          player: {
+            ...state.player, // Preserve the other properties of the player
             balance,
-           
+            usdt,
+            numKeys,
           },
         })
       }),
@@ -101,6 +112,7 @@ export const useUserStore = () => {
     updatePlayerBalance: useStore(api, (state: IUserStore) => state.updatePlayerBalance),
     updatePlayerEnergy: useStore(api, (state: IUserStore) => state.updatePlayerEnergy),
     updatePlayerIncome: useStore(api, (state: IUserStore) => state.updatePlayerIncome),
+    updatePlayerInvoice: useStore(api, (state: IUserStore) => state.updatePlayerInvoice),
     shop: useStore(api, (state: IUserStore) => state.shop),
     setShop: useStore(api, (state: IUserStore) => state.setShop),
     dailyQuest: useStore(api, (state: IUserStore) => state.dailyQuest),

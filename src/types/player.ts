@@ -8,7 +8,9 @@ export enum RankType {
 
 /* User type */
 export interface IPlayer {
-    balance: number 
+    balance: number
+    usdt?: number
+    numKeys?: number 
     createdAt?: string | Date
     firstName?: string
     energyLatest?: number
