@@ -1,16 +1,20 @@
 
 //import ReactJson from 'react-json-view';
-//import { Cell } from '@ton/core';
+import { Cell } from '@ton/core';
 
+import { useRegisterWallet } from '@/hooks/api/useRegisterWallet';
 import { useSiteStore } from '@/providers/store';
+import { useWalletStore } from '@/providers/wallet';
+import { apiFetch } from '@/services/api';
 import { Page } from '@/types';
-import { SendTransactionRequest, SendTransactionResponse, useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
+import { SendTransactionRequest, SendTransactionResponse, useTonConnectUI, useTonWallet, Wallet } from '@tonconnect/ui-react';
 import { 
     FC, 
     useCallback, 
     useEffect,
     useState, 
 } from 'react'
+import { useRegisterTestTransaction } from '@/hooks/api/useRegisterTestTransaction';
 
 // In this example, we are using a predefined smart contract state initialization (`stateInit`)
 // to interact with an "EchoContract". This contract is designed to send the value back to the sender,
@@ -31,16 +35,6 @@ const defaultTx: SendTransactionRequest = {
 			// (optional) Payload in boc base64 format.
 			//payload: 'te6ccsEBAQEADAAMABQAAAAASGVsbG8hCaTc/g==',
 		},
-
-		// Uncomment the following message to send two messages in one transaction.
-		/*
-    {
-      // Note: Funds sent to this address will not be returned back to the sender.
-      address: 'UQAuz15H1ZHrZ_psVrAra7HealMIVeFq0wguqlmFno1f3B-m',
-      amount: toNano('0.01').toString(),
-    }
-    */
-
 	],
 };
 
@@ -68,8 +62,40 @@ export default Airdrop;
 
 const TxForm = () => {
     const [tx, ] = useState(defaultTx);
-	const wallet = useTonWallet();
+	const wallet: Wallet | null = useTonWallet();
 	const [tonConnectUi] = useTonConnectUI();
+
+    const { registerWallet } = useRegisterWallet(apiFetch)
+    const { registerTestTransaction } = useRegisterTestTransaction(apiFetch)
+
+    const { 
+        isWalletInit, 
+        isTestTransaction 
+    } = useWalletStore();
+
+    
+
+    useEffect(() => {
+
+        if (wallet && isWalletInit) {
+            return;
+        }
+
+        registerWallet({
+            account: {
+                address: wallet?.account.address, 
+                chain: wallet?.account.chain,
+                init: wallet?.account.walletStateInit,
+                publicKey: wallet?.account.publicKey
+            },
+            deviceInfo: {
+                platform: wallet?.device.platform,
+                appName: wallet?.device.appName,  
+                appVersion: wallet?.device.appVersion, 
+                maxProtocolVersion: wallet?.device.maxProtocolVersion
+            }
+        });
+    }, [wallet, isWalletInit]);
 
 	//const onChange = useCallback((value: object) => setTx((value as { updated_src: typeof defaultTx }).updated_src), []);
 
@@ -85,16 +111,18 @@ const TxForm = () => {
         //console.log('Transaction hash:', transactionHash);
 
         if (result && result.boc) {
-            //const cell = Cell.fromBase64(result.boc)
-            //const buffer = cell.hash();
-            //const hashHex = buffer.toString('hex');     
+            const cell = Cell.fromBase64(result.boc)
+            const buffer = cell.hash();
+            const hash = buffer.toString('hex');
+            
+            registerTestTransaction(hash)
         }
 
        
         // hashHex: 57123dffb9029bdaa9187b5d035737eea94a1b8c018e2ab1885f245eb95c6e30
         // const hashBase64 = buffer.toString('base64');
 
-        // https://tonapi.io/v2/blockchain/transactions/57123dffb9029bdaa9187b5d035737eea94a1b8c018e2ab1885f245eb95c6e30
+        //https://tonapi.io/v2/blockchain/transactions/28dad9fc1a9b06116f4e4be5ed5b3868381c8c7209629e880ffb04a1626f5ebf
 
     }, []);
    
@@ -132,9 +160,9 @@ const TxForm = () => {
 
             <div className='
             mt-4 flex items-center justify-between px-4'>
-                <span className={`airdrop-conditions`}>2. Make an upproval transaction.</span>  
-                {/* <span className={`${wallet ? 'airdrop-conditions-disabled' : 'airdrop-conditions'}`}>1. Connect your Ton Wallet.</span>   */}
-                {/* {wallet &&<img src="/airdrop/checked.png" alt="checked" />}   */}
+                {/* <span className={`airdrop-conditions`}>2. Make an upproval transaction.</span>   */}
+                <span className={`${wallet && !isTestTransaction  ? 'airdrop-conditions-disabled' : 'airdrop-conditions'}`}>2. Make an upproval transaction.</span>  
+                {wallet && isTestTransaction &&<img src="/airdrop/checked.png" alt="checked" />}  
             </div>
             <div className='mt-4'>
                 {/* <div className={`
@@ -152,7 +180,7 @@ const TxForm = () => {
                 uppercase 
                 flex flex-row items-center 
                 justify-center gap-2
-                function-btn btn-no-body
+                ${wallet && isTestTransaction ? 'function-btn-disabled' : 'function-btn btn-no-body'}
                 `}>
                     Make transaction 0.05 TON
                     <img className='w-8 h-8' src="/airdrop/wallet.png" alt="" />

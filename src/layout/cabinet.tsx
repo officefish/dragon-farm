@@ -22,6 +22,7 @@ import useUpdateTasks from "@/hooks/api/useUpdateTasks"
 //import useUpdateIncome from "@/hooks/api/useUpdateIncome"
 import useUpdateReferrals from "@/hooks/api/useUpdateReferrals"
 import Airdrop from "@/pages/airdrop"
+import useUpdateWalletStatus from "@/hooks/api/useUpdateWalletStatus"
 //import { useAllQuestsInfo } from "@/hooks/api/useAllQuestsInfo"
 //import Daily from "@/pages/daily"
 
@@ -32,7 +33,7 @@ const Cabinet:FC = () => {
   //const { allQuestsInfo } = useAllQuestsInfo(apiFetch);
   //const { updateShop } = useUpdateShop(apiFetch);
   const { updateReferrals } = useUpdateReferrals(apiFetch, 1, 10);
-  //const { updateIncome } = useUpdateIncome(apiFetch)
+  const { updateWalletStatus } = useUpdateWalletStatus(apiFetch)
   const { updateTasks } = useUpdateTasks(apiFetch) 
   
   const [isLoading, setIsLoading] = useState(true);
@@ -43,6 +44,7 @@ const Cabinet:FC = () => {
       //allQuestsInfo(),
       //updateShop(),
       //updateIncome(),
+      updateWalletStatus(),
       updateReferrals(),
       updateTasks()
       //

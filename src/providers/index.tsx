@@ -4,6 +4,7 @@ import { UserProvider } from "./user"
 import { TapsProvider } from "./tap"
 import { SnackbarProvider } from "notistack"
 import { TonClientProvider } from "./ton"
+import { WalletProvider } from "./wallet"
 
 const Providers: FC <PropsWithChildren> = ({ children }) => {
     return (
@@ -11,13 +12,15 @@ const Providers: FC <PropsWithChildren> = ({ children }) => {
         maxSnack={3} 
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
             <SiteProvider>
-                <UserProvider>
-                    <TapsProvider>
-                        <TonClientProvider>
-                            {children}
-                        </TonClientProvider>
-                    </TapsProvider>
-                </UserProvider>
+            <UserProvider>
+            <TapsProvider>
+            <WalletProvider>
+            <TonClientProvider>
+                {children}
+            </TonClientProvider>
+            </WalletProvider>
+            </TapsProvider>
+            </UserProvider>
             </SiteProvider>
         </SnackbarProvider>
     )

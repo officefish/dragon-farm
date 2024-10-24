@@ -6,7 +6,7 @@ import { useUserStore } from '@/providers/user';
 const useGetTaskBaunty = (apiFetch: any, onSuccess?: () => void) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const { setDailyTasks, setSeasonTasks } = useUserStore();
+  const { setDailyTasks, setSeasonTasks, updatePlayerInvoice  } = useUserStore();
 
   const getTaskBaunty = useCallback(
     async (taskId: string) => {
@@ -14,16 +14,22 @@ const useGetTaskBaunty = (apiFetch: any, onSuccess?: () => void) => {
         const res = await apiFetch('/tasks/baunty', 'POST', { taskId }, enqueueSnackbar);
 
         // Filter tasks into dailyTasks and seasonTasks
-        const dailyTasks = res.filter((task: ITask) => task.templateTask.isDaily);
-        const seasonTasks = res.filter((task: ITask) => !task.templateTask.isDaily);
 
-        console.log('getTaskBaynty response:');
+        console.log('getTaskBaunty response:');
         console.log(res);
-        
-        // console.log('Season Tasks:', seasonTasks);
 
-        setDailyTasks(dailyTasks);
-        setSeasonTasks(seasonTasks);
+        if (res.tasks) {
+          const dailyTasks = res.tasks.filter((task: ITask) => task.templateTask.isDaily);
+          const seasonTasks = res.tasks.filter((task: ITask) => !task.templateTask.isDaily);
+            
+          setDailyTasks(dailyTasks);
+          setSeasonTasks(seasonTasks);
+        }
+
+        const stats = res.playerStats
+        if (stats) {
+          updatePlayerInvoice(stats.balance, stats.usdt, stats.numKeys);
+        }
 
         onSuccess && onSuccess();
         
