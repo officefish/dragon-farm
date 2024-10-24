@@ -161,7 +161,7 @@ const TxForm = () => {
             <div className='
             mt-4 flex items-center justify-between px-4'>
                 {/* <span className={`airdrop-conditions`}>2. Make an upproval transaction.</span>   */}
-                <span className={`${wallet && !isTestTransaction  ? 'airdrop-conditions-disabled' : 'airdrop-conditions'}`}>2. Make an upproval transaction.</span>  
+                <span className={`${!wallet || !isTestTransaction  ? 'airdrop-conditions-disabled' : 'airdrop-conditions'}`}>2. Make an upproval transaction.</span>  
                 {wallet && isTestTransaction &&<img src="/airdrop/checked.png" alt="checked" />}  
             </div>
             <div className='mt-4'>
@@ -180,7 +180,7 @@ const TxForm = () => {
                 uppercase 
                 flex flex-row items-center 
                 justify-center gap-2
-                ${wallet && isTestTransaction ? 'function-btn-disabled' : 'function-btn btn-no-body'}
+                ${!wallet || (wallet && isTestTransaction) ? 'function-btn-disabled' : 'function-btn btn-no-body'}
                 `}>
                     Make transaction 0.05 TON
                     <img className='w-8 h-8' src="/airdrop/wallet.png" alt="" />
