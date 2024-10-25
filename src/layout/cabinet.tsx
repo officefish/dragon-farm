@@ -18,6 +18,7 @@ import { useRegister } from "@/hooks/api/useRegister"
 import { apiFetch } from "@/services/api"
 //import ReferralProgram from "@/pages/referral-program"
 import useUpdateTasks from "@/hooks/api/useUpdateTasks"
+import useUpdateChests from "@/hooks/api/useUpdateChests"
 //import { useUpdateShop } from "@/hooks/api/useUpdateShop"
 //import useUpdateIncome from "@/hooks/api/useUpdateIncome"
 import useUpdateReferrals from "@/hooks/api/useUpdateReferrals"
@@ -35,6 +36,7 @@ const Cabinet:FC = () => {
   const { updateReferrals } = useUpdateReferrals(apiFetch, 1, 10);
   const { updateWalletStatus } = useUpdateWalletStatus(apiFetch)
   const { updateTasks } = useUpdateTasks(apiFetch) 
+  const { updateChests } = useUpdateChests(apiFetch)
   
   const [isLoading, setIsLoading] = useState(true);
 
@@ -43,11 +45,10 @@ const Cabinet:FC = () => {
       //dailyQuestInfo(),  
       //allQuestsInfo(),
       //updateShop(),
-      //updateIncome(),
+      updateChests(),
       updateWalletStatus(),
       updateReferrals(),
       updateTasks()
-      //
     ];
     await Promise.all([...apiRequests],)
   }

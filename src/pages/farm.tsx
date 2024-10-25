@@ -1,16 +1,18 @@
 
 
+import { useChestsStore } from "@/providers/chests";
 import { useSiteStore } from "@/providers/store";
 import { Page } from "@/types";
 import { FC, useEffect,  } from "react";
 
 const Farm: FC = () => {
 
-  const { setPage } = useSiteStore();
-
+  const { setPage } = useSiteStore();  
   useEffect(() => {
     setPage(Page.FARM);
   }, [setPage]);
+
+  const { tape } = useChestsStore();
 
     return (
     <div className='w-full'>
@@ -20,10 +22,10 @@ const Farm: FC = () => {
       9 Types of Rewards Available
     </div>
 
-    <div className="w-full mt-8">
-      <div className="grid grid-rows-4 grid-cols-4 gap-3">
+    <div className="w-full mt-8 px-2">
+      <div className="grid grid-rows-5 grid-cols-5 gap-1">
           
-          {Array.from({ length: 16 }).map((_, index) => (
+          {Array.from({ length: tape?.chests.length || 0 }).map((_, index) => (
             <div key={index} className="col-span-1 flex h-20 items-center justify-center">
               <img className="w-12 h-12" src="farm/chest.png" alt="" />
             </div>

@@ -5,6 +5,7 @@ import { TapsProvider } from "./tap"
 import { SnackbarProvider } from "notistack"
 import { TonClientProvider } from "./ton"
 import { WalletProvider } from "./wallet"
+import { ChestsProvider } from "./chests"
 
 const Providers: FC <PropsWithChildren> = ({ children }) => {
     return (
@@ -15,9 +16,11 @@ const Providers: FC <PropsWithChildren> = ({ children }) => {
             <UserProvider>
             <TapsProvider>
             <WalletProvider>
+            <ChestsProvider>     
             <TonClientProvider>
                 {children}
             </TonClientProvider>
+            </ChestsProvider>
             </WalletProvider>
             </TapsProvider>
             </UserProvider>
