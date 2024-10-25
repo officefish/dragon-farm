@@ -23,7 +23,7 @@ const Farm: FC = () => {
     </div>
 
     <div className="w-full mt-8 px-2">
-      <div className="grid grid-rows-5 grid-cols-5 gap-1">
+      <div className="grid grid-rows-4 grid-cols-4 gap-3">
           
           {Array.from({ length: tape?.chests.length || 0 }).map((_, index) => (
             <div key={index} className="col-span-1 flex h-20 items-center justify-center">
