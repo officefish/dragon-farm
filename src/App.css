@@ -503,6 +503,51 @@ body {
   opacity: 25%;
 }
 
+/* Farm */
+.farm-key-value {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 600;
+  /* line-height: 18px; */
+  text-align: left;
+  color: #3EBD1E;
+}
+
+.farm-key-title {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 600;
+  /* line-height: 18px; */
+  text-align: left;
+
+  background: -webkit-linear-gradient(180deg, #E9EEFF 0%, rgba(255, 255, 255, 0.68) 93.95%, rgba(255, 255, 255, 0) 156.58%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+.farm-key-tag {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 300;
+  /* line-height: 14.4px; */
+  letter-spacing: 0.1px;
+  text-align: left;
+  
+  color: #FFFFFF;
+}
+
+.farm-key-expire {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+  text-align: left;
+
+  color: #FFF;
+}
+
 /* Shop */
 /* .shop-balance {
 
@@ -745,7 +790,6 @@ body {
 }
 
 .task-item {
-  height: 96px;
   border-radius: 20px;
   border-radius: 8px;
   backdrop-filter: blur(56px);

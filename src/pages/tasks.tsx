@@ -136,7 +136,9 @@ const TaskItem : FC<TaskItemProps> = (props) => {
     w-full 
     flex flex-row 
     items-center justify-between
-    task-item`}>
+    task-item
+    h-24
+    `}>
       <div className="flex flex-row gap-2 items-center justify-start">
           <div className="flex items-center justify-center pl-2 w-24">
               <Icon type={task.templateTask.type} />
