@@ -548,6 +548,16 @@ body {
   color: #FFF;
 }
 
+.chest-item-value {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  /* line-height: 15.4px; */
+  text-align: center;
+
+  color: #FFFBE9;
+}
+
 /* Shop */
 /* .shop-balance {
 

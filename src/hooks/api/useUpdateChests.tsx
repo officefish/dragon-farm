@@ -9,15 +9,24 @@ import { useChestsStore } from '@/providers/chests';
 const useUpdateChests = (apiFetch: any) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const { setTape } = useChestsStore();
+  const { setTape, setItems, setChests, setBaunty } = useChestsStore();
 
   const updateChests = useCallback(
     async () => {
    
       try {
         const res = await apiFetch('/chest/tape', 'GET', null, enqueueSnackbar);
-        setTape(res)
+        if (res.tape) {
+          setTape(res.tape)
+          setChests(res.tape.chests)
+          const items = res.tape.chests.map((chest: any) => chest.item);
+          console.log(items)
 
+          const baunty = res.item;
+          setBaunty(baunty);
+  
+          setItems(items);
+        }
         //if (res.energyLatest && res.energyMax) {
         //  updatePlayerEnergy(res.energyLatest, res.energyMax)
         //}
