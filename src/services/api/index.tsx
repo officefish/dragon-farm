@@ -7,7 +7,6 @@ import { useCallback, useState } from 'react';
 //const apiURL = import.meta.env.VITE_API_URL || 'http://localhost:8001/api/v1'
 const apiURL = import.meta.env.SERVER_API_URL || 'https://dragon-farm.online/api/v1'
 
-
 export async function apiFetch<T>(
     url: string, 
     method: string, 
