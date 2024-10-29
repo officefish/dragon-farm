@@ -3,7 +3,13 @@ import { useUserStore } from "@/providers/user"
 import { apiFetch } from "@/services/api"
 import { FC, useEffect } from "react"
 
-const GameStats:FC = () => {
+interface GameStatsProps {
+  onBuyKeys: () => void
+}
+
+const GameStats:FC<GameStatsProps> = (props) => {
+
+  const { onBuyKeys } = props
 
   const { player } = useUserStore()
   const balance = player?.balance || 0
@@ -41,7 +47,9 @@ const GameStats:FC = () => {
           <div className="stats-value">{numKeys}</div>
           <div className="stats-type uppercase">keys</div>
         </div>
-        <img className="w-5 h-5" src="/stats/plus.png" alt="plus coin" />
+        <div className="btn-no-body" onClick={onBuyKeys}>
+          <img className="w-5 h-5" src="/stats/plus.png" alt="plus coin" />
+        </div>
       </div>
       <img className="w-8 h-8" src="/stats/menu.png" alt="plus coin" />
     </div>       

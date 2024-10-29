@@ -558,6 +558,13 @@ body {
   color: #FFFBE9;
 }
 
+.selected-chest-item {
+  border: 2px solid #FFB966;
+  backdrop-filter: blur(12.15px);
+  width: Fixed (80px)px;
+  border-radius: 8px;
+}
+
 /* Shop */
 /* .shop-balance {
 

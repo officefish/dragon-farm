@@ -1,18 +1,16 @@
 
-
-import { ReadyBauntyDialog } from "@/components/dialogs/farm.dialog";
-import { useBuyKeys } from "@/hooks/api/useBuyKeys";
-import { useGetChestBaunty } from "@/hooks/api/useGetChestBaunty";
+import BauntyItem from "@/components/farm/baunty.item";
+import { Chest, ClosedChest } from "@/components/farm/chest";
 import { useOpenChest } from "@/hooks/api/useOpenChest";
+import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
 import { useUnblockTape } from "@/hooks/api/useUnblockTape";
-import useUpdateChests from "@/hooks/api/useUpdateChests";
 import { useChestsStore } from "@/providers/chests";
 import { useSiteStore } from "@/providers/store";
 import { useUserStore } from "@/providers/user";
 import { apiFetch } from "@/services/api";
 import { Page } from "@/types";
-import { IChest, IChestItem } from "@/types/chest";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Farm: FC = () => {
 
@@ -23,43 +21,25 @@ const Farm: FC = () => {
 
   const { unblockTape } = useUnblockTape(apiFetch);
   const { openChest } = useOpenChest(apiFetch);
-  const { buyKeys } = useBuyKeys(apiFetch);
+  const { simpleBuyKeys } = useSimpleBuyKeys(apiFetch);
   const { tape, chests, items, baunty } = useChestsStore();
-
-  const [isBauntyDialogOpen, setIsBauntyDialogOpen] = useState(false)
-
-  useEffect(() => {
-    if (baunty) {
-      setIsBauntyDialogOpen(true)
-    }
-  }, [baunty])
 
   const handleUnblockTape = () => {
     unblockTape(tape?.id || '');
   }
 
   const handleAddKey = () => {    
-    buyKeys(1);
+    simpleBuyKeys(1);
   }
 
   const handleOpenChest = (chestId: string) => {
     openChest(tape?.id || '', chestId);
   }
 
-  const onSuccessGetBaunty = () => {
-   setIsBauntyDialogOpen(false)
-  }
-
-  const { getChestBaunty } = useGetChestBaunty(apiFetch, onSuccessGetBaunty)
+  const navigate = useNavigate()
 
   const handleGetBaunty = () => {
-    getChestBaunty(baunty?.id || '')
-  }
-
-  const { updateChests } = useUpdateChests(apiFetch)
-
-  const handleUpdateChests = () => {
-    updateChests()
+    navigate('/baunty')
   }
 
     return (
@@ -91,8 +71,10 @@ const Farm: FC = () => {
 
           {tape && tape.state === "OPENED" && (
             items && items.map((item, index) => (
-              <Item key={index}
-              data={item} />
+              <BauntyItem key={index}
+              data={item}
+              selected={baunty?.chestId === item.chestId}
+              />
             ))
           )}
 
@@ -119,22 +101,16 @@ const Farm: FC = () => {
       {/* Tape unblocked navigation */}
       {tape?.state === "OPENED" && (
          <div className="h-20 function-btn btn-no-body flex flex-row gap-1 items-center justify-center mx-2"
-         onClick={handleUpdateChests}
+         onClick={handleGetBaunty}
          >
             <div className="shop-dialog-title flex flex-row items-center justify-center gap-2">
               {/* <img className="w-4 h-4" src="farm/win.png" alt="" /> */}
-              TRY AGAIN!
+              GET BAUNTY!
               {/* <img className="w-4 h-4" src="farm/win.png" alt="" /> */}
             </div>
          </div>
       )}
 
-      {tape?.state === "OPENED" && (
-        <ReadyBauntyDialog item={baunty} 
-        isOpen={isBauntyDialogOpen} 
-        setIsOpen={handleGetBaunty} 
-          onReadyClick={handleGetBaunty} />
-      )}
       </div>
     </div>
    )
@@ -181,58 +157,4 @@ const TapeBlockedNavigation: FC<TapeBlockedNavigationProps> = (props) => {
         </div>
   )
 }
-
-interface ChestProps {
-  chest: IChest;
-  onOpen: (chestId: string) => void;
-}
-
-const Chest: FC<ChestProps> = (props) => {
-
-  const handleOpen = () => {
-   props.onOpen(props.chest.id); 
-  }
-
-  return (
-  <div className="col-span-1 flex h-20 items-center justify-center btn-no-body"
-  onClick={handleOpen}
-  >
-    <img className="w-18 h-18" src="farm/chest-open.png" alt="chest open" /> 
-  </div>
-   )
-}
-
-const ClosedChest: FC = () => {
-  return (
-  <div className="col-span-1 flex h-20 items-center justify-center btn-no-body">
-    <img className="w-18 h-18" src="farm/chest.png" alt="chest close" />
-  </div>
-   )
-}
-
-interface ItemProps {
-  data?: IChestItem;
-}
-
-const Item: FC<ItemProps> = (props) => {
-
-  const data = props.data
-
-  const getIconSrc = (variant: string) => {
-    switch(variant) {
-      case "KEYS": return "farm/big-key.png";
-      case "COINS": return "farm/big-coin.png";
-      case "USDT": return "farm/big-usdt.png";
-    }
-  }
-
-  return (
-    <div className="col-span-1 flex flex-col h-20 w-20 gap-1 items-center justify-center">
-      <img className="w-16 h-16" src={getIconSrc(data?.variant || "KEYS")} alt="chest close" />
-      <div className="chest-item-value">{data?.variant === "USDT" ? data.value / 100 : data?.value}</div>
-    </div>
-  )
-}
-
-
 

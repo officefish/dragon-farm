@@ -24,6 +24,7 @@ import useUpdateChests from "@/hooks/api/useUpdateChests"
 import useUpdateReferrals from "@/hooks/api/useUpdateReferrals"
 import Airdrop from "@/pages/airdrop"
 import useUpdateWalletStatus from "@/hooks/api/useUpdateWalletStatus"
+import Baunty from "@/pages/baunty"
 //import { useAllQuestsInfo } from "@/hooks/api/useAllQuestsInfo"
 //import Daily from "@/pages/daily"
 
@@ -83,6 +84,7 @@ return (
             <Route path='/friends' element={<Friends/>} />
             <Route path='/tasks' element={<Tasks/>} />
             <Route path='/airdrop' element={<Airdrop/>} />
+            <Route path='/baunty' element={<Baunty/>} />
             {/* <Route path='/shop' element={<Shop/>} /> */}
         </Routes>
       </Content>

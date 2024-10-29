@@ -17,8 +17,14 @@ export interface IChest {
 
 export interface IChestItem {
     id: string
+    chestId: string
     type: 'COMMON' | 'RARE' | 'EPIC'
     variant: 'USDT' | 'COINS' | 'KEYS'
     value: number
+}
+
+export interface IBauntyItem extends IChestItem {
+    playerId: string
+    tapeId: string
 }
 

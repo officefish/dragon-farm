@@ -1,18 +1,20 @@
 import { useCallback } from 'react'
 import { useSnackbar } from 'notistack' // Assuming you're using notistack for notifications
 import { useUserStore } from '@/providers/user';
+//import { useNavigate } from 'react-router-dom';
 
-export const useBuyKeys = (apiFetch: any, onSuccess?: (response: any) => void) => {
+export const useSimpleBuyKeys = (apiFetch: any, onSuccess?: () => void) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { updatePlayerInvoice, player } = useUserStore();
+  //const navigate = useNavigate()
 
-  const buyKeys = useCallback(
+  const simpleBuyKeys = useCallback(
     async (numKeys: number) => {
    
       try {
-        const res = await apiFetch('/star-shop/keys/buy', 'POST', { numKeys }, enqueueSnackbar);
-        onSuccess && onSuccess(res)
+        const res = await apiFetch('/player/keys/buy', 'POST', { numKeys }, enqueueSnackbar);
+        onSuccess && onSuccess()
 
         updatePlayerInvoice(player?.balance || 0, player?.usdt || 0, res.numKeys);
         
@@ -24,5 +26,5 @@ export const useBuyKeys = (apiFetch: any, onSuccess?: (response: any) => void) =
     [apiFetch, enqueueSnackbar] // Dependencies
   )
 
-  return { buyKeys }
+  return { simpleBuyKeys }
 }

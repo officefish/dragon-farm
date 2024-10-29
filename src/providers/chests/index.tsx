@@ -2,7 +2,7 @@ import { FC, PropsWithChildren, useRef, useContext } from 'react'
 import { createStore, StoreApi, useStore } from 'zustand'
 import { createContext } from 'react' // from 'zustand/context'
 import { IChestState, IChestActions } from './types'
-import { ITape, IChest, IChestItem } from '@/types/chest'
+import { ITape, IChest, IChestItem, IBauntyItem } from '@/types/chest'
 
 type IChestStore = IChestState & IChestActions
 
@@ -14,7 +14,7 @@ const createChestStore = () =>
     setChests: (chests: IChest[]) => set(() => ({ chests })),
     items: [],
     setItems: (items: IChestItem[]) => set(() => ({ items })),
-    setBaunty: (baunty: IChestItem) => set(() => ({ baunty })),
+    setBaunty: (baunty: IBauntyItem) => set(() => ({ baunty })),
   }))
 
   type ChestStore = ReturnType<typeof createChestStore>

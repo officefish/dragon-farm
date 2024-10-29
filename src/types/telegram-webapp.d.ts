@@ -34,6 +34,7 @@ declare global {
 				openLink: (url: string, options?: { try_instant_view: boolean }) => void;
 				platform: string;
 				version: string;
+				openInvoice: (url: string, callback: (result: string) => void ) => void;
 			};
 		};
 	}

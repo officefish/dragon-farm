@@ -11,7 +11,7 @@ const Navigation: FC = () => {
     grid grid-cols-4
     mx-2 
     pb-2 
-    z-50">
+    z-40">
       <NavButton selected={page === Page.AIRDROP} to={'/airdrop'} title={'Airdrop'} index={0}/>
       {/* <NavButton selected={page === Page.SHOP} to={'/shop'} title={'Shop'} index={1}/> */}
       <NavButton selected={page === Page.FARM} to={'/'} title={'Farm'} index={1}/>

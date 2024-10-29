@@ -6,7 +6,7 @@ import { useChestsStore } from '@/providers/chests';
 //import { IPlayer } from '@/types';
 //import { useAxiosPostTrigger } from '@/services/axios.service'
 
-const useUpdateChests = (apiFetch: any) => {
+const useUpdateChests = (apiFetch: any, onSuccess?: () => void) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { setTape, setItems, setChests, setBaunty } = useChestsStore();
@@ -19,14 +19,15 @@ const useUpdateChests = (apiFetch: any) => {
         if (res.tape) {
           setTape(res.tape)
           setChests(res.tape.chests)
-          const items = res.tape.chests.map((chest: any) => chest.item);
-          console.log(items)
 
           const baunty = res.item;
           setBaunty(baunty);
-  
+ 
+          const items = res.tape.chests.map((chest: any) => chest.item);
           setItems(items);
         }
+
+        onSuccess && onSuccess()
         //if (res.energyLatest && res.energyMax) {
         //  updatePlayerEnergy(res.energyLatest, res.energyMax)
         //}
