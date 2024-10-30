@@ -1,16 +1,17 @@
 import GameStats from "@/components/game.stats";
 import { useBuyKeys } from "@/hooks/api/useBuyKeys";
 import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
+import { useSiteStore } from "@/providers/store";
 //import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
 import { apiFetch } from "@/services/api";
-import { FC, PropsWithChildren, useState } from "react";
+import { FC, PropsWithChildren } from "react";
 
 const Content: FC <PropsWithChildren> = ({ children }) => {
   
-    const [shopIsOpen, setShopIsOpen] = useState(false) 
+    const { keyShopOpen, setKeyShopOpen } = useSiteStore()
     
     const onSimpleBuyKeysSuccess = () => {
-      setShopIsOpen(false)
+      setKeyShopOpen(false)
     }
     const { simpleBuyKeys } = useSimpleBuyKeys(apiFetch, onSimpleBuyKeysSuccess)
 
@@ -27,8 +28,7 @@ const Content: FC <PropsWithChildren> = ({ children }) => {
     const { buyKeys } = useBuyKeys(apiFetch, onBuyKeysSuccess) 
 
     const handleBuyKeys = () => {
-      console.log('Hundle buy keys')
-      setShopIsOpen(true)
+      setKeyShopOpen(true)
     }
 
     const onShopItemSelect = (value: number) => {    
@@ -40,11 +40,15 @@ const Content: FC <PropsWithChildren> = ({ children }) => {
       <main className='pt-8'>
         {children}
         {/* Shop component */}
-        {shopIsOpen && (
+        {keyShopOpen && (
           <div className="fixed top-0 w-screen h-screen overflow-hidden z-50">
         
             <div className="w-full h-full bg-black opacity-70"></div>
             <div className="absolute bottom-0 w-full h-[307px] task-modal">
+
+              <div className="absolute top-0 right-0 btn-no-body pr-4 pt-2" onClick={() => setKeyShopOpen(false)}>
+                <img src="/stars-shop/close.png" alt="" />
+              </div>
 
               <div className='shop-dialog-title mt-16 uppercase px-2'>SHOP</div>
               <div className='shop-dialog-description mt-3 px-2'>Buy more keys for better prizes.</div>

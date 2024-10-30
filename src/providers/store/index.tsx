@@ -14,6 +14,8 @@ const createSiteStore = () =>
     addLoading: () => set((state) => ({ isLoading: state.isLoading + 1 })),
     removeLoading: () => set((state) => ({ isLoading: state.isLoading - 1 })),
     hideLoading: () => set(() => ({ isLoading: 0 })),
+    keyShopOpen: false,
+    setKeyShopOpen: (isOpen: boolean) => set(() => ({ keyShopOpen: isOpen })), 
   }))
 
 type Store = ReturnType<typeof createSiteStore>
@@ -29,6 +31,8 @@ export const useSiteStore = () => {
     addLoading: useStore(api, (state: IStore) => state.addLoading),
     removeLoading: useStore(api, (state: IStore) => state.removeLoading),
     hideLoading: useStore(api, (state: IStore) => state.hideLoading),
+    keyShopOpen: useStore(api, (state: IStore) => state.keyShopOpen),
+    setKeyShopOpen: useStore(api, (state: IStore) => state.setKeyShopOpen),
   }
 }
 

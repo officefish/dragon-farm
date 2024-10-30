@@ -4,6 +4,7 @@ import {
   export interface IStoreState {
     page: Page
     isLoading: number
+    keyShopOpen: boolean
   }
   
   export interface IStoreActions {
@@ -11,4 +12,5 @@ import {
     addLoading: () => void
     removeLoading: () => void
     hideLoading: () => void
+    setKeyShopOpen: (isOpen: boolean) => void
   }

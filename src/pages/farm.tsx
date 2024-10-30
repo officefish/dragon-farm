@@ -2,7 +2,7 @@
 import BauntyItem from "@/components/farm/baunty.item";
 import { Chest, ClosedChest } from "@/components/farm/chest";
 import { useOpenChest } from "@/hooks/api/useOpenChest";
-import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
+// import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
 import { useUnblockTape } from "@/hooks/api/useUnblockTape";
 import { useChestsStore } from "@/providers/chests";
 import { useSiteStore } from "@/providers/store";
@@ -14,14 +14,14 @@ import { useNavigate } from "react-router-dom";
 
 const Farm: FC = () => {
 
-  const { setPage } = useSiteStore();  
+  const { setPage, setKeyShopOpen } = useSiteStore();  
   useEffect(() => {
     setPage(Page.FARM);
   }, [setPage]);
 
   const { unblockTape } = useUnblockTape(apiFetch);
   const { openChest } = useOpenChest(apiFetch);
-  const { simpleBuyKeys } = useSimpleBuyKeys(apiFetch);
+  // const { simpleBuyKeys } = useSimpleBuyKeys(apiFetch);
   const { tape, chests, items, baunty } = useChestsStore();
 
   const handleUnblockTape = () => {
@@ -29,11 +29,16 @@ const Farm: FC = () => {
   }
 
   const handleAddKey = () => {    
-    simpleBuyKeys(1);
+    //simpleBuyKeys(1);
+    setKeyShopOpen(true);
   }
 
   const handleOpenChest = (chestId: string) => {
     openChest(tape?.id || '', chestId);
+  }
+
+  const handleGetMoreKeys = () => {
+    setKeyShopOpen(true);
   }
 
   const navigate = useNavigate()
@@ -88,6 +93,7 @@ const Farm: FC = () => {
           <TapeBlockedNavigation
           onAddKey={handleAddKey}
           onUnblockTape={handleUnblockTape}
+          onGetMoreKeys={handleGetMoreKeys}
           ></TapeBlockedNavigation>  
       )}
 
@@ -120,12 +126,13 @@ export default Farm
 interface TapeBlockedNavigationProps {
   onAddKey: () => void;
   onUnblockTape: () => void;  
+  onGetMoreKeys: () => void;
 } 
 
 const TapeBlockedNavigation: FC<TapeBlockedNavigationProps> = (props) => {
 
   const { player } = useUserStore();
-  const { onAddKey, onUnblockTape } = props;
+  const { onAddKey, onUnblockTape, onGetMoreKeys } = props;
 
   return (
    <div className="h-20 task-item flex flex-row gap-1 items-center justify-between">
@@ -149,11 +156,19 @@ const TapeBlockedNavigation: FC<TapeBlockedNavigationProps> = (props) => {
               <div className="farm-key-expire">03:30</div>
             </div>
           </div>
-          <div className="function-btn btn-no-body uppercase w-full"
-          onClick={onUnblockTape}
+          {player && (player?.numKeys || 0) > 0 
+          ?  <div className="function-btn btn-no-body uppercase w-full"
+              onClick={onUnblockTape}
           >
             Open Box
           </div>
+          : <div className="function-btn btn-no-body uppercase w-full"
+          onClick={onGetMoreKeys}
+          >
+            Get More Keys
+          </div>
+          }
+         
         </div>
   )
 }
