@@ -1,5 +1,6 @@
 import GameStats from "@/components/game.stats";
 import { useBuyKeys } from "@/hooks/api/useBuyKeys";
+import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
 //import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
 import { apiFetch } from "@/services/api";
 import { FC, PropsWithChildren, useState } from "react";
@@ -7,14 +8,18 @@ import { FC, PropsWithChildren, useState } from "react";
 const Content: FC <PropsWithChildren> = ({ children }) => {
   
     const [shopIsOpen, setShopIsOpen] = useState(false) 
+    
+    const onSimpleBuyKeysSuccess = () => {
+      setShopIsOpen(false)
+    }
+    const { simpleBuyKeys } = useSimpleBuyKeys(apiFetch, onSimpleBuyKeysSuccess)
 
-    const onBuyKeysSuccess = (invoiceLink: string) => {
+    const onBuyKeysSuccess = (invoiceLink: string, numKeys: number) => {
       //console.log('On buy keys for stars success')
-      console.log(invoiceLink)
+      //console.log(invoiceLink)
       window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
         if (status === "paid") {
-          // Telegram notified us that the payment has been made
-          // Refresh user's balance, plan, etc
+          simpleBuyKeys(numKeys)
         }
       });
     } 
