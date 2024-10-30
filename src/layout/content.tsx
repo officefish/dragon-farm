@@ -8,9 +8,15 @@ const Content: FC <PropsWithChildren> = ({ children }) => {
   
     const [shopIsOpen, setShopIsOpen] = useState(false) 
 
-    const onBuyKeysSuccess = (response: any) => {
-      console.log('On buy keys for stars success')
-      console.log(response)
+    const onBuyKeysSuccess = (invoiceLink: string) => {
+      //console.log('On buy keys for stars success')
+      console.log(invoiceLink)
+      window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
+        if (status === "paid") {
+          // Telegram notified us that the payment has been made
+          // Refresh user's balance, plan, etc
+        }
+      });
     } 
 
     const { buyKeys } = useBuyKeys(apiFetch, onBuyKeysSuccess) 
