@@ -4,6 +4,7 @@ import { Chest, ClosedChest } from "@/components/farm/chest";
 import { useOpenChest } from "@/hooks/api/useOpenChest";
 // import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
 import { useUnblockTape } from "@/hooks/api/useUnblockTape";
+import useUpdateTotalBalance from "@/hooks/api/useUpdateTotalBalance";
 import { useChestsStore } from "@/providers/chests";
 import { useSiteStore } from "@/providers/store";
 import { useUserStore } from "@/providers/user";
@@ -147,6 +148,8 @@ const TapeBlockedNavigation: FC<TapeBlockedNavigationProps> = (props) => {
     }
   }, [player]);
 
+  const {updateTotalBalance} = useUpdateTotalBalance(apiFetch)
+
   // Запуск таймера обратного отсчета
   useEffect(() => {
     if (remainingTime <= 0) return;
@@ -155,6 +158,7 @@ const TapeBlockedNavigation: FC<TapeBlockedNavigationProps> = (props) => {
       setRemainingTime((prevTime) => {
         if (prevTime <= 1000) {
           clearInterval(timer);
+          updateTotalBalance();
           //fetchNewKey(); // Получаем новый ключ после завершения обратного отсчета
           return 0;
         }
@@ -172,15 +176,6 @@ const TapeBlockedNavigation: FC<TapeBlockedNavigationProps> = (props) => {
     const seconds = Math.floor((time % (1000 * 60)) / 1000);
     return `${hours}h ${minutes}m ${seconds}s`;
   };
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const now = new Date().getTime();
-  //     const distance = KEY_GENERATION_INTERVAL - (now % KEY_GENERATION_INTERVAL);
-  //     setRemainingTime(distance);
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
 
   return (
    <div className="h-20 task-item flex flex-row gap-1 items-center justify-between">
