@@ -192,7 +192,9 @@ const TapeBlockedNavigation: FC<TapeBlockedNavigationProps> = (props) => {
               </div>
             </div>
             <div>
-              <progress className="w-full progress progress-info progress-xs bg-[#A7B4BE75]" value={28} max={100}></progress>
+              <progress className="w-full progress progress-info progress-xs bg-[#A7B4BE75]" 
+              value={KEY_GENERATION_INTERVAL -remainingTime} 
+              max={KEY_GENERATION_INTERVAL}></progress>
             </div>
             <div className="flex flex-row items-center justify-between h-8">
               <div className="farm-key-tag">New key</div>
