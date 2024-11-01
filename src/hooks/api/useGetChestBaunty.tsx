@@ -5,7 +5,7 @@ import { useUserStore } from '@/providers/user';
 export const useGetChestBaunty = (apiFetch: any, onSuccess?: () => void) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const { updatePlayerInvoice } = useUserStore();
+  const { updatePlayerInvoice, player } = useUserStore();
 
   const getChestBaunty = useCallback(
     async (itemId: string) => {
@@ -13,7 +13,7 @@ export const useGetChestBaunty = (apiFetch: any, onSuccess?: () => void) => {
       try {
         const res = await apiFetch('/chest/take/baunty', 'POST', { itemId }, enqueueSnackbar);
 
-        updatePlayerInvoice(res.coins || 0, res.usdt || 0, res.keys || 0);
+        updatePlayerInvoice(res.coins || 0, res.usdt || 0, res.keys || 0, player?.lastKeyReady || "");
 
         onSuccess && onSuccess()
         

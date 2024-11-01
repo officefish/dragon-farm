@@ -15,7 +15,7 @@ export const useSimpleBuyKeys = (apiFetch: any, onSuccess?: () => void) => {
       try {
         const res = await apiFetch('/player/keys/buy', 'POST', { numKeys }, enqueueSnackbar);
 
-        updatePlayerInvoice(player?.balance || 0, player?.usdt || 0, res.numKeys);
+        updatePlayerInvoice(player?.balance || 0, player?.usdt || 0, res.numKeys, player?.lastKeyReady || "");
         onSuccess && onSuccess()
         
       } catch (error: any) {

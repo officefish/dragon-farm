@@ -6,7 +6,7 @@ import { useUserStore } from '@/providers/user';
 const useGetTaskBaunty = (apiFetch: any, onSuccess?: () => void) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const { setDailyTasks, setSeasonTasks, updatePlayerInvoice  } = useUserStore();
+  const { setDailyTasks, setSeasonTasks, updatePlayerInvoice, player  } = useUserStore();
 
   const getTaskBaunty = useCallback(
     async (taskId: string) => {
@@ -28,7 +28,7 @@ const useGetTaskBaunty = (apiFetch: any, onSuccess?: () => void) => {
 
         const stats = res.playerStats
         if (stats) {
-          updatePlayerInvoice(stats.balance, stats.usdt, stats.numKeys);
+          updatePlayerInvoice(stats.balance, stats.usdt, stats.numKeys, player?.lastKeyReady || "");
         }
 
         onSuccess && onSuccess();

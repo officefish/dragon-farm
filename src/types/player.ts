@@ -29,6 +29,7 @@ export interface IPlayer {
     imageUrl?: string 
     active?: boolean
     incomePerHour?: number
+    lastKeyReady?: string
 }
 
 export interface IReferral extends Omit<IPlayer, 

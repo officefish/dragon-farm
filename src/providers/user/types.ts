@@ -23,7 +23,12 @@ import {
     updatePlayerBalance: (balance: number) => void 
     updatePlayerEnergy: (energyLatest: number, energyMax: number) => void
     updatePlayerIncome: (income: number) => void 
-    updatePlayerInvoice: (balance: number, usdt: number, numKeys: number) => void 
+    updatePlayerInvoice: (
+      balance: number, 
+      usdt: number, 
+      numKeys: number,
+      lastKeyReady: string
+    ) => void 
     setShop: (model: ICategory[]) => void
     setDailyQuest: (dailyQuest: IDailyQuest) => void
     setMinigame: (minigame: IMinigame) => void

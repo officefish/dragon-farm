@@ -19,7 +19,12 @@ const createUserStore = () =>
           },
         })
       }),
-    updatePlayerInvoice: (balance: number, usdt: number, numKeys: number) =>
+    updatePlayerInvoice: (
+      balance: number, 
+      usdt: number, 
+      numKeys: number,
+      lastKeyReady: string
+    ) =>
       set((state) => {
         return ({
           player: {
@@ -27,6 +32,7 @@ const createUserStore = () =>
             balance,
             usdt,
             numKeys,
+            lastKeyReady
           },
         })
       }),

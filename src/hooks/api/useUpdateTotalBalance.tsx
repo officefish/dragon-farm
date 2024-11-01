@@ -13,7 +13,7 @@ const useUpdateTotalBalance = (apiFetch: any) => {
         const res = await apiFetch('/player/balance/all', 'GET', enqueueSnackbar);
         console.log(res);        
         
-        updatePlayerInvoice(res.balance, res.usdt, res.numKeys);
+        updatePlayerInvoice(res.balance, res.usdt, res.numKeys, res.lastKeyReady);
        
       } catch (error) {
         console.error('Error updating user balance (invoice) ', error);

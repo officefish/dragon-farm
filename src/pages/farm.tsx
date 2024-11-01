@@ -9,8 +9,10 @@ import { useSiteStore } from "@/providers/store";
 import { useUserStore } from "@/providers/user";
 import { apiFetch } from "@/services/api";
 import { Page } from "@/types";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+const KEY_GENERATION_INTERVAL = 4 * 60 * 60 * 1000; // 4 часа в миллисекундах
 
 const Farm: FC = () => {
 
@@ -134,6 +136,52 @@ const TapeBlockedNavigation: FC<TapeBlockedNavigationProps> = (props) => {
   const { player } = useUserStore();
   const { onAddKey, onUnblockTape, onGetMoreKeys } = props;
 
+  const [remainingTime, setRemainingTime] = useState(0);
+
+  // Рассчитываем время до следующего ключа
+  useEffect(() => {
+    if (player && player.lastKeyReady) {
+      const nextKeyTime = new Date(player.lastKeyReady).getTime() + KEY_GENERATION_INTERVAL;
+      const timeUntilNextKey = nextKeyTime - Date.now();
+      setRemainingTime(timeUntilNextKey > 0 ? timeUntilNextKey : 0);
+    }
+  }, [player]);
+
+  // Запуск таймера обратного отсчета
+  useEffect(() => {
+    if (remainingTime <= 0) return;
+
+    const timer = setInterval(() => {
+      setRemainingTime((prevTime) => {
+        if (prevTime <= 1000) {
+          clearInterval(timer);
+          //fetchNewKey(); // Получаем новый ключ после завершения обратного отсчета
+          return 0;
+        }
+        return prevTime - 1000;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [remainingTime]);
+
+// Преобразуем оставшееся время в часы, минуты и секунды
+  const formatTime = (time: number) => {
+    const hours = Math.floor(time / (1000 * 60 * 60));
+    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((time % (1000 * 60)) / 1000);
+    return `${hours}h ${minutes}m ${seconds}s`;
+  };
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const now = new Date().getTime();
+  //     const distance = KEY_GENERATION_INTERVAL - (now % KEY_GENERATION_INTERVAL);
+  //     setRemainingTime(distance);
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
   return (
    <div className="h-20 task-item flex flex-row gap-1 items-center justify-between">
           <div className="flex flex-col pl-2 pt-2 w-56">
@@ -153,7 +201,7 @@ const TapeBlockedNavigation: FC<TapeBlockedNavigationProps> = (props) => {
             </div>
             <div className="flex flex-row items-center justify-between h-8">
               <div className="farm-key-tag">New key</div>
-              <div className="farm-key-expire">03:30</div>
+              <div className="farm-key-expire">{formatTime(remainingTime)}</div>
             </div>
           </div>
           {player && (player?.numKeys || 0) > 0 
