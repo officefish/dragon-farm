@@ -50,12 +50,23 @@ const Farm: FC = () => {
     navigate('/baunty')
   }
 
+  const handleRewardsInfo = () => {
+    navigate('/chest-items')
+  }
+
     return (
     <div className='w-full'>
 
       <div className='shop-dialog-title mt-8 uppercase px-2'>find a Great Prize!</div>
-      <div className='mt-3 shop-dialog-description px-2'>
+      <div className='
+      mt-3 px-2 
+      shop-dialog-description 
+      flex flex-row 
+      items-center justify-center gap-2
+      btn-no-body
+      ' onClick={handleRewardsInfo}>
         9 Types of Rewards Available
+        <img className="w-5 h-5" src="farm/question.png" alt="question" />
       </div>
 
       <div className="w-full mt-6 px-2">
@@ -113,9 +124,7 @@ const Farm: FC = () => {
          onClick={handleGetBaunty}
          >
             <div className="shop-dialog-title flex flex-row items-center justify-center gap-2">
-              {/* <img className="w-4 h-4" src="farm/win.png" alt="" /> */}
               GET BAUNTY!
-              {/* <img className="w-4 h-4" src="farm/win.png" alt="" /> */}
             </div>
          </div>
       )}

@@ -565,6 +565,51 @@ body {
   border-radius: 8px;
 }
 
+/* Chest Items Info */
+.chest-item-info {
+  background: linear-gradient(180deg, rgba(78, 86, 113, 0.62) 0%, rgba(18, 36, 56, 0.17) 100%);
+  border-width: 2px, 2px, 0px, 2px;
+  border-style: solid;
+  border-color: #FFFFFF29;
+ 
+  border-radius: 8px 8px 0px 0px;
+}
+
+.chest-item-info-rarity {
+  height: Fixed (18px)px;
+  border-radius: 0px 0px 4px 4px;
+  opacity: 0px;
+
+  font-family: Roboto;
+  font-size: 10px;
+  font-weight: 600;
+  /* line-height: 10px; */
+  text-align: left;
+
+  color: #FFFBE9;
+}
+
+.rarity-unique {
+  background: linear-gradient(90deg, #7F2AEC 0%, #9B4BEB 100%);
+}
+
+.rarity-rare {
+  background: linear-gradient(90deg, #4585D0 0%, #535FC9 100%);
+}
+
+.rarity-common {
+  background: #494A52;
+}
+
+.chest-item-min-max {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 600;
+  /* line-height: 12px; */
+  text-align: left;
+  color: #FFFBE9;
+}
+
 /* Shop */
 /* .shop-balance {
 
