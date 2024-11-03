@@ -14,6 +14,7 @@ import {
     referralsTotal: number
     referralsPage: number
     referralsCode: string
+    claimedAll: boolean
     dailyTasks: ITask[]
     seasonTasks: ITask[]
   }
@@ -40,4 +41,6 @@ import {
     setReferralsCode: (code: string) => void
     setDailyTasks: (tasks: ITask[]) => void
     setSeasonTasks: (tasks: ITask[]) => void
+    setReferralStatus: (id: string, status: boolean) => void
+    setClaimedAll: (status: boolean) => void
   }

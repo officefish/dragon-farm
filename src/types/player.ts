@@ -30,6 +30,7 @@ export interface IPlayer {
     active?: boolean
     incomePerHour?: number
     lastKeyReady?: string
+    referrerRewarded: boolean
 }
 
 export interface IReferral extends Omit<IPlayer, 

@@ -10,13 +10,14 @@ const useUpdateReferrals = (apiFetch: any, page: number, take: number) => {
     setReferralsPage,
     setReferralsTotal,
     setRefferals,
+    setClaimedAll,
   } = useUserStore();
  
   const updateReferrals = useCallback(
     async () => {
       try {
         const res = await apiFetch(
-          '/player/refferals',
+          '/player/referrals',
           'POST',
           {page, take},
           enqueueSnackbar
@@ -33,6 +34,10 @@ const useUpdateReferrals = (apiFetch: any, page: number, take: number) => {
 
         if (res.count > 0) {
           setReferralsTotal(res.count);
+        }
+
+        if (res.claimedAll) {
+          setClaimedAll(res.claimedAll);
         }
 
       } catch (error) {

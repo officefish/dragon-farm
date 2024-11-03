@@ -15,7 +15,8 @@ const createUserStore = () =>
         return ({
           player: {
             ...state.player, // Preserve the other properties of the player
-            balance, 
+            balance,
+            referrerRewarded: state.player?.referrerRewarded || false 
           },
         })
       }),
@@ -32,7 +33,8 @@ const createUserStore = () =>
             balance,
             usdt,
             numKeys,
-            lastKeyReady
+            lastKeyReady,
+            referrerRewarded: state.player?.referrerRewarded || false
           },
         })
       }),
@@ -44,6 +46,7 @@ const createUserStore = () =>
               balance: state.player?.balance || 0,
               energyLatest,
               energyMax,
+              referrerRewarded: state.player?.referrerRewarded || false
             },
           })
         }),
@@ -54,6 +57,7 @@ const createUserStore = () =>
             ...state.player, // Preserve the other properties of the player
             balance: state.player?.balance || 0,
             incomePerHour,
+            referrerRewarded: state.player?.referrerRewarded || false
           },
         })
       }),
@@ -103,6 +107,22 @@ const createUserStore = () =>
     setReferralsCode: (code: string) => set(() => ({ referralsCode: code })),
     setDailyTasks: (tasks: ITask[]) => set(() => ({ dailyTasks:tasks })),
     setSeasonTasks: (tasks: ITask[]) => set(() => ({ seasonTasks:tasks })),
+
+    setReferralStatus: (id: string, status: boolean) =>
+      set((state) => {
+        const updatedReferrals = new Map(state.referrals);
+        const referrals = updatedReferrals.get(state.referralsPage) || [];
+        const updatedReferralsList = referrals.map((referral) => {
+          if (referral.id === id) {
+            return { ...referral, referrerRewarded: status }; 
+          }
+          return referral;
+        });
+        updatedReferrals.set(state.referralsPage, updatedReferralsList);
+        return { referrals: updatedReferrals };
+      }),
+    claimedAll: false,
+    setClaimedAll: (status: boolean) => set(() => ({ claimedAll: status })),
   }))
 
 type UserStore = ReturnType<typeof createUserStore>
@@ -138,6 +158,10 @@ export const useUserStore = () => {
     setReferralsCode: useStore(api, (state: IUserStore) => state.setReferralsCode),
     setDailyTasks: useStore(api, (state: IUserStore) => state.setDailyTasks),
     setSeasonTasks: useStore(api, (state: IUserStore) => state.setSeasonTasks),    
+
+    setReferralStatus: useStore(api, (state: IUserStore) => state.setReferralStatus),
+    claimedAll: useStore(api, (state: IUserStore) => state.claimedAll),
+    setClaimedAll: useStore(api, (state: IUserStore) => state.setClaimedAll),
   }
 }
 

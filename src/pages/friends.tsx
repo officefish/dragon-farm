@@ -1,5 +1,8 @@
 import { useSiteStore } from "@/providers/store";
 import { useUserStore } from "@/providers/user";
+import { apiFetch } from "@/services/api";
+import { useClaimBauntyForFriend } from "@/hooks/api/useClaimBauntyForFriend";
+import { useClaimBauntyForAllFriends } from "@/hooks/api/useClaimBauntyForAllFriends";
 import { IReferral, Page } from "@/types";
 import { 
   FC, 
@@ -8,6 +11,7 @@ import {
   useState, 
   useRef, 
 } from "react";
+import useUpdateReferrals from "@/hooks/api/useUpdateReferrals";
 
 const Friends: FC = () => {
 
@@ -17,16 +21,24 @@ const Friends: FC = () => {
   useEffect(() => {
       setPage(Page.FRIENDS)
   }, [setPage])
-
   
   const { 
     referralsPage, 
     referralsTotal,
     referralsCode,
     getRefferals,
+    claimedAll
   } = useUserStore()
  
  const [referrals, setReferrals] = useState<IReferral[]>()
+
+  const { updateReferrals } = useUpdateReferrals(apiFetch, referralsPage, 10)
+
+  const onClaimAllSuccess = () => {
+    updateReferrals()
+  }
+
+ const { claimBauntyForAll } = useClaimBauntyForAllFriends(apiFetch, onClaimAllSuccess)
 
   useEffect(() => {
     
@@ -47,7 +59,8 @@ const Friends: FC = () => {
   }, [referralsPage, 
     referralsTotal,
     referralsCode,
-    getRefferals])
+    getRefferals
+  ])
 
   const [referralUrl, setReferralUrl] = useState("link/ref=userandranders03Hf72nf5Nfa941412") 
   const [telegramUrl, setTelegramUrl] = useState("")
@@ -90,6 +103,9 @@ const Friends: FC = () => {
     }
   }, [])
 
+  const handleClaimedAll = () => {
+    claimBauntyForAll(1, 10)
+  }
 
   return (
     <div  className="overflow-x-hidden pb-20 tasks-list z-0"> 
@@ -107,16 +123,16 @@ const Friends: FC = () => {
               <div className="friend-banner-baunty flex flex-row 
               items-center justify-center gap-1">
                 <img className="w-5 h-5" src="/stats/coin.png" alt="" />
-                + 1 237.344K
+                + 1 250
               </div>
               <div className="friend-banner-description w-full">both for you and your friend</div>
             </div>
-            <div className="h-[72px] flex flex-col items-center w-full gap-2">
+            <div className="flex flex-col items-center w-full gap-3">
               <div className="w-full text-center friends-banner-title px-4">Telegram Premium</div>
               <div className="friend-banner-baunty flex flex-row 
               items-center justify-center gap-1">
                 <img className="w-5 h-5" src="/stats/coin.png" alt="" />
-                + 1 237.344K
+                + 3 200
               </div>
               <div className="friend-banner-description w-full">both for you and your friend</div>
             </div>
@@ -125,16 +141,19 @@ const Friends: FC = () => {
         {/* Friends list */}
         <div className="w-full px-2 pt-4 friends-list-label flex flex-row items-center justify-between">
           <div>Your friends</div>
-          <div>{referrals?.length && (<div className="
+          <div>{referrals?.length && !claimedAll && <div className="
           invite-friends-btn
           btn-no-body 
           w-24 flex flex-row gap-1 items-center justify-center
           px-3 py-2
           claim-all-btn
-          ">Claim all
-          <img src="/friends/claim-check.png" alt="claim" />
-          </div>)}</div>
+          "
+            onClick={handleClaimedAll}
+            >Claim all
+              <img src="/friends/claim-check.png" alt="claim" />
+            </div>}
           </div>
+        </div>
         {referrals 
           ? <><FriendsList friends={referrals} /></> 
           : <div className="mx-1 mt-4 flex items-center justify-center gap-2 h-16 no-friends-slot">
@@ -171,6 +190,7 @@ export default Friends
 interface UserItemProps {
   player: IReferral
   index: number
+  onClaimClick: (referralId: string) => void
 }
 
 interface FriendsListProps {
@@ -179,6 +199,13 @@ interface FriendsListProps {
 
 const FriendsList: FC<FriendsListProps> = (props) => {
   const { friends } = props
+
+  const { claimBaunty } = useClaimBauntyForFriend(apiFetch) // 
+  const handleClaim = (referralId: string) => {
+    console.log(referralId)
+    claimBaunty(referralId)
+  }
+
   return <div className="mx-1 mt-4 z-0">
     <div className="friends-list flex flex-col">
     <div className="overflow-x-auto">
@@ -192,17 +219,21 @@ const FriendsList: FC<FriendsListProps> = (props) => {
       </tr>
       </thead>
       <tbody>
-        {friends.map((friend, i) => <UserItem key={i} player={friend} index={i} />)}
+        {friends.map((friend, i) => <UserItem 
+        key={i} 
+        player={friend} 
+        index={i} 
+        onClaimClick={handleClaim}  
+        />)}
       </tbody>
       </table>
     </div>
     </div>
-   
   </div>
 }
 
 const UserItem: FC<UserItemProps> = (props) => {
-  const { player, index } = props
+  const { player, index, onClaimClick } = props
 
   const [fullName, setFullName] = useState<string>("")
   useEffect(() => {
@@ -222,7 +253,11 @@ const UserItem: FC<UserItemProps> = (props) => {
       <div className="friend-slot-baunty">7.4K</div>
     </th>
     <th>
-      <div className="claim-btn btn-no-body p-1">claim</div>
+      {player.referrerRewarded ? null
+      : <div 
+      className="claim-btn btn-no-body p-1" 
+      onClick={() => onClaimClick(player.id || "")}>claim</div> 
+      }
     </th>
   </tr>)
 }
