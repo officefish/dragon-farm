@@ -31,10 +31,12 @@ const Friends: FC = () => {
   } = useUserStore()
  
  const [referrals, setReferrals] = useState<IReferral[]>()
+ const [claimBlocked, setClaimBlocked] = useState<boolean>(false)
 
-  const { updateReferrals } = useUpdateReferrals(apiFetch, referralsPage, 10)
+ const { updateReferrals } = useUpdateReferrals(apiFetch, referralsPage, 10)
 
   const onClaimAllSuccess = () => {
+    setClaimBlocked(true)
     updateReferrals()
   }
 
@@ -155,7 +157,7 @@ const Friends: FC = () => {
           </div>
         </div>
         {referrals 
-          ? <><FriendsList friends={referrals} /></> 
+          ? <><FriendsList friends={referrals} claimBlocked={claimBlocked} /></> 
           : <div className="mx-1 mt-4 flex items-center justify-center gap-2 h-16 no-friends-slot">
             Still no friends here 😔
             </div>
@@ -191,10 +193,12 @@ interface UserItemProps {
   player: IReferral
   index: number
   onClaimClick: (referralId: string) => void
+  claimBlocked: boolean
 }
 
 interface FriendsListProps {
   friends: IReferral[]
+  claimBlocked: boolean
 }   
 
 const FriendsList: FC<FriendsListProps> = (props) => {
@@ -223,7 +227,8 @@ const FriendsList: FC<FriendsListProps> = (props) => {
         key={i} 
         player={friend} 
         index={i} 
-        onClaimClick={handleClaim}  
+        onClaimClick={handleClaim}
+        claimBlocked={props.claimBlocked}  
         />)}
       </tbody>
       </table>
@@ -253,7 +258,7 @@ const UserItem: FC<UserItemProps> = (props) => {
       <div className="friend-slot-baunty">7.4K</div>
     </th>
     <th>
-      {player.referrerRewarded ? null
+      {player.referrerRewarded || props.claimBlocked ? null
       : <div 
       className="claim-btn btn-no-body p-1" 
       onClick={() => onClaimClick(player.id || "")}>claim</div> 
