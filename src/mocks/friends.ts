@@ -21,7 +21,8 @@ export const mockFriends: IPlayer[] = [
       referralProfit: 0,
       active: false,
       incomePerHour: 0,
-      imageUrl: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+      imageUrl: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+      referrerRewarded: false
    },
 
    {
@@ -43,7 +44,8 @@ export const mockFriends: IPlayer[] = [
     referralProfit: 0,
     active: false,
     incomePerHour: 0,
-    imageUrl: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+    imageUrl: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+    referrerRewarded: false
   },
 
   {
@@ -65,7 +67,8 @@ export const mockFriends: IPlayer[] = [
     referralProfit: 0,
     active: false,
     incomePerHour: 0,
-    imageUrl: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+    imageUrl: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+    referrerRewarded: false
  },
 
 ];
