@@ -12,15 +12,42 @@ import { apiFetch } from "@/services/api";
 import { Page } from "@/types";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Daily from "./daily";
 
 const KEY_GENERATION_INTERVAL = 4 * 60 * 60 * 1000; // 4 часа в миллисекундах
 
-const Farm: FC = () => {
 
-  const { setPage, setKeyShopOpen } = useSiteStore();  
+const FarmProxy: FC = () => {
+  const { setPage } = useSiteStore();  
+
   useEffect(() => {
     setPage(Page.FARM);
   }, [setPage]);
+
+  const [isAvailable, setIsAvailable] = useState(false);
+
+  const { dailyQuest } = useUserStore();
+
+  useEffect(() => {
+      console.log(dailyQuest)
+      if (dailyQuest.claimedToday) {
+          setIsAvailable(false);
+      } else {
+          setIsAvailable(true);
+      }
+  }, [dailyQuest])
+
+  return <>
+    {isAvailable && <Daily />}
+    {!isAvailable &&  <Farm />}
+  </>;  
+}
+
+export default FarmProxy;
+
+const Farm: FC = () => {
+
+  const { setKeyShopOpen } = useSiteStore();  
 
   const { unblockTape } = useUnblockTape(apiFetch);
   const { openChest } = useOpenChest(apiFetch);
@@ -133,7 +160,6 @@ const Farm: FC = () => {
     </div>
    )
 }
-export default Farm
 
 interface TapeBlockedNavigationProps {
   onAddKey: () => void;

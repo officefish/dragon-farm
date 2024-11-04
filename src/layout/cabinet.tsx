@@ -6,7 +6,7 @@ import Screen from "./screen"
 
 import { Route, Routes } from "react-router-dom"
 
-import Farm from "@/pages/farm"
+import FarmProxy from "@/pages/farm"
 import Friends from "@/pages/friends"
 import Tasks from "@/pages/tasks"
 //import Shop from "@/pages/shop"
@@ -26,6 +26,8 @@ import Airdrop from "@/pages/airdrop"
 import useUpdateWalletStatus from "@/hooks/api/useUpdateWalletStatus"
 import Baunty from "@/pages/baunty"
 import ChestItems from "@/pages/chest-items"
+import { useUpdateDailyQuest } from "@/hooks/api/useUpdateDailyQuest"
+import Daily from "@/pages/daily"
 //import { useAllQuestsInfo } from "@/hooks/api/useAllQuestsInfo"
 //import Daily from "@/pages/daily"
 
@@ -39,18 +41,17 @@ const Cabinet:FC = () => {
   const { updateWalletStatus } = useUpdateWalletStatus(apiFetch)
   const { updateTasks } = useUpdateTasks(apiFetch) 
   const { updateChests } = useUpdateChests(apiFetch)
+  const { updateDailyQuest } = useUpdateDailyQuest(apiFetch)
   
   const [isLoading, setIsLoading] = useState(true);
 
   const loadResources = async () => {
     const apiRequests = [
-      //dailyQuestInfo(),  
-      //allQuestsInfo(),
-      //updateShop(),
       updateChests(),
       updateWalletStatus(),
       updateReferrals(),
-      updateTasks()
+      updateTasks(),
+      updateDailyQuest(),
     ];
     await Promise.all([...apiRequests],)
   }
@@ -81,13 +82,14 @@ return (
     <Screen>
       <Content>
         <Routes>
-            <Route path='/' element={<Farm/>} />
+            <Route path='/' element={<FarmProxy/>} />
             <Route path='/friends' element={<Friends/>} />
             <Route path='/tasks' element={<Tasks/>} />
             <Route path='/airdrop' element={<Airdrop/>} />
             <Route path='/baunty' element={<Baunty/>} />
             {/* <Route path='/shop' element={<Shop/>} /> */}
             <Route path='/chest-items' element={<ChestItems/>} />
+            <Route path='/daily' element={<Daily/>} />
         </Routes>
       </Content>
       <Footer>
