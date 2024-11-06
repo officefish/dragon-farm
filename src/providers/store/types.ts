@@ -5,6 +5,7 @@ import {
     page: Page
     isLoading: number
     keyShopOpen: boolean
+    withdrawOpen: boolean
   }
   
   export interface IStoreActions {
@@ -13,4 +14,5 @@ import {
     removeLoading: () => void
     hideLoading: () => void
     setKeyShopOpen: (isOpen: boolean) => void
+    setWithdrawOpen: (isOpen: boolean) => void
   }

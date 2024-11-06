@@ -6,7 +6,7 @@ import Screen from "./screen"
 
 import { Route, Routes } from "react-router-dom"
 
-import FarmProxy from "@/pages/farm"
+import Farm from "@/pages/farm"
 import Friends from "@/pages/friends"
 import Tasks from "@/pages/tasks"
 //import Shop from "@/pages/shop"
@@ -82,7 +82,7 @@ return (
     <Screen>
       <Content>
         <Routes>
-            <Route path='/' element={<FarmProxy/>} />
+            <Route path='/' element={<Farm/>} />
             <Route path='/friends' element={<Friends/>} />
             <Route path='/tasks' element={<Tasks/>} />
             <Route path='/airdrop' element={<Airdrop/>} />

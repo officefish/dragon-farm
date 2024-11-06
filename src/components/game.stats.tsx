@@ -5,11 +5,12 @@ import { FC, useEffect } from "react"
 
 interface GameStatsProps {
   onBuyKeys: () => void
+  onWithdraw: () => void
 }
 
 const GameStats:FC<GameStatsProps> = (props) => {
 
-  const { onBuyKeys } = props
+  const { onBuyKeys, onWithdraw } = props
 
   const { player } = useUserStore()
   const balance = player?.balance || 0
@@ -38,7 +39,9 @@ const GameStats:FC<GameStatsProps> = (props) => {
           <div className="stats-value">{(usdt/100).toFixed(2)}</div>
           <div className="stats-type uppercase">usdt</div>
         </div>
-        <img className="w-5 h-5" src="/stats/wallet.png" alt="plus usdt" />
+        <div className="btn-no-body" onClick={onWithdraw}>
+          <img className="w-5 h-5" src="/stats/wallet.png" alt="plus usdt" />
+        </div>
       </div>
       <div className="stats-spacer mx-1 my-2 opacity-60"></div>
       <div className="w-[31%] flex flex-row gap-2 items-center">

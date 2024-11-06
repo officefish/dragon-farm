@@ -17,35 +17,38 @@ import Daily from "./daily";
 const KEY_GENERATION_INTERVAL = 4 * 60 * 60 * 1000; // 4 часа в миллисекундах
 
 
-const FarmProxy: FC = () => {
-  const { setPage } = useSiteStore();  
+// const FarmProxy: FC = () => {
+//  
 
-  useEffect(() => {
-    setPage(Page.FARM);
-  }, [setPage]);
+//   const [isAvailable, setIsAvailable] = useState(false);
 
-  const [isAvailable, setIsAvailable] = useState(false);
+//   const { dailyQuest } = useUserStore();
 
-  const { dailyQuest } = useUserStore();
+//   useEffect(() => {
+//       console.log(dailyQuest)
+//       if (dailyQuest.claimedToday) {
+//           setIsAvailable(false);
+//       } else {
+//           setIsAvailable(true);
+//       }
+//   }, [dailyQuest])
 
-  useEffect(() => {
-      console.log(dailyQuest)
-      if (dailyQuest.claimedToday) {
-          setIsAvailable(false);
-      } else {
-          setIsAvailable(true);
-      }
-  }, [dailyQuest])
+//   return <>
+//     {isAvailable && <Daily />}
+//     {!isAvailable &&  <Farm />}
+//     {/* <Daily /> */}
+//   </>;  
+// }
 
-  return <>
-    {isAvailable && <Daily />}
-    {!isAvailable &&  <Farm />}
-  </>;  
-}
-
-export default FarmProxy;
+// export default FarmProxy;
 
 const Farm: FC = () => {
+
+  const { setPage } = useSiteStore();  
+
+    useEffect(() => {
+      setPage(Page.FARM);
+    }, [setPage]);
 
   const { setKeyShopOpen } = useSiteStore();  
 
@@ -160,6 +163,8 @@ const Farm: FC = () => {
     </div>
    )
 }
+
+export default Farm
 
 interface TapeBlockedNavigationProps {
   onAddKey: () => void;

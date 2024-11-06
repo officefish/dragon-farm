@@ -8,7 +8,12 @@ import { FC, PropsWithChildren } from "react";
 
 const Content: FC <PropsWithChildren> = ({ children }) => {
   
-    const { keyShopOpen, setKeyShopOpen } = useSiteStore()
+    const { 
+      keyShopOpen, 
+      setKeyShopOpen,
+      withdrawOpen,
+      setWithdrawOpen
+    } = useSiteStore()
     
     const onSimpleBuyKeysSuccess = () => {
       setKeyShopOpen(false)
@@ -16,8 +21,6 @@ const Content: FC <PropsWithChildren> = ({ children }) => {
     const { simpleBuyKeys } = useSimpleBuyKeys(apiFetch, onSimpleBuyKeysSuccess)
 
     const onBuyKeysSuccess = (invoiceLink: string, numKeys: number) => {
-      //console.log('On buy keys for stars success')
-      //console.log(invoiceLink)
       window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
         if (status === "paid") {
           simpleBuyKeys(numKeys)
@@ -31,43 +34,86 @@ const Content: FC <PropsWithChildren> = ({ children }) => {
       setKeyShopOpen(true)
     }
 
+    const handleWithdraw = () => {
+      setWithdrawOpen(true)
+    }
+
     const onShopItemSelect = (value: number) => {    
       buyKeys(value)
     }
     
     return  (<>
-      <GameStats onBuyKeys={handleBuyKeys} />
+      <GameStats onBuyKeys={handleBuyKeys} onWithdraw={handleWithdraw} />
       <main className='pt-8'>
         {children}
         {/* Shop component */}
         {keyShopOpen && (
-          <div className="fixed top-0 w-screen h-screen overflow-hidden z-50">
-        
-            <div className="w-full h-full bg-black opacity-70"></div>
-            <div className="absolute bottom-0 w-full h-[307px] task-modal">
-
-              <div className="absolute top-0 right-0 btn-no-body pr-4 pt-2" onClick={() => setKeyShopOpen(false)}>
-                <img src="/stars-shop/close.png" alt="" />
-              </div>
-
-              <div className='shop-dialog-title mt-16 uppercase px-2'>SHOP</div>
-              <div className='shop-dialog-description mt-3 px-2'>Buy more keys for better prizes.</div>
-
-              <div className="w-full grid grid-cols-2 grid-rows-2 px-4 gap-2 text-white">
-                <StarShopItem value={10} onSelect={onShopItemSelect} />
-                <StarShopItem value={50} onSelect={onShopItemSelect} />
-                <StarShopItem value={100} onSelect={onShopItemSelect} />
-                <StarShopItem value={200} onSelect={onShopItemSelect} />
-              </div>
-            </div>
-
-          </div>
+         <ForStarsShop onShopItemSelect={onShopItemSelect} setKeyShopOpen={setKeyShopOpen} />
+        )}
+        {withdrawOpen && (
+          <Withdraw setWithdrawOpen={setWithdrawOpen} />
         )}
       </main>
     </>)
   
 }
 export default Content
+
+interface IWithdrawProps {
+  setWithdrawOpen: (isOpen: boolean) => void
+}
+
+const Withdraw:FC<IWithdrawProps> = (props) => {
+  const { setWithdrawOpen } = props
+  
+  return (
+    <div className="fixed top-0 w-screen h-screen overflow-hidden z-50">
+        
+    <div className="w-full h-full bg-black opacity-70"></div>
+    <div className="absolute bottom-0 w-full h-[307px] task-modal">
+
+      <div className="absolute top-0 right-0 btn-no-body pr-4 pt-2" onClick={() => setWithdrawOpen(false)}>
+        <img src="/stars-shop/close.png" alt="" />
+      </div>
+
+        <div className='shop-dialog-title mt-16 uppercase px-2'>WITHDRAW</div>
+        <div className='shop-dialog-description mt-3 px-2'>Withdrawal is available from <span className="text-green-300">10 USDT</span></div>
+    </div>
+  </div>
+  )
+}
+
+interface IForStarsShopProps {
+  onShopItemSelect: (value: number) => void
+  setKeyShopOpen: (isOpen: boolean) => void
+}
+
+const ForStarsShop:FC<IForStarsShopProps> = (props) => {
+  const { onShopItemSelect, setKeyShopOpen } = props
+  return (
+    <div className="fixed top-0 w-screen h-screen overflow-hidden z-50">
+        
+    <div className="w-full h-full bg-black opacity-70"></div>
+    <div className="absolute bottom-0 w-full h-[307px] task-modal">
+
+      <div className="absolute top-0 right-0 btn-no-body pr-4 pt-2" onClick={() => setKeyShopOpen(false)}>
+        <img src="/stars-shop/close.png" alt="" />
+      </div>
+
+      <div className='shop-dialog-title mt-16 uppercase px-2'>SHOP</div>
+      <div className='shop-dialog-description mt-3 px-2'>Buy more keys for better prizes.</div>
+
+      <div className="w-full grid grid-cols-2 grid-rows-2 px-4 gap-2 text-white">
+        <StarShopItem value={10} onSelect={onShopItemSelect} />
+        <StarShopItem value={50} onSelect={onShopItemSelect} />
+        <StarShopItem value={100} onSelect={onShopItemSelect} />
+        <StarShopItem value={200} onSelect={onShopItemSelect} />
+      </div>
+    </div>
+
+  </div>
+  )
+}
 
 interface IStarShopItem {
   value: number
