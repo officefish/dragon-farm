@@ -12,7 +12,7 @@ import { apiFetch } from "@/services/api";
 import { Page } from "@/types";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Daily from "./daily";
+//import Daily from "./daily";
 
 const KEY_GENERATION_INTERVAL = 4 * 60 * 60 * 1000; // 4 часа в миллисекундах
 

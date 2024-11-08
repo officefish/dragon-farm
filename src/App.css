@@ -1305,3 +1305,27 @@ body {
   color:#FFFBE9;
   opacity: 30%;
 }
+
+/* Withdraw */
+.withdraw-label {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  color: #D6DEE7C2;
+}
+
+.withdraw-amount {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  color: #FFFBE9;
+}
+
+.withdraw-currency {
+  font-family: Roboto;
+  font-size: 10px;
+  font-weight: 300;
+  text-align: left;
+  color: #FFFBE9;  
+}

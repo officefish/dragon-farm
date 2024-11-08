@@ -1,10 +1,12 @@
 import GameStats from "@/components/game.stats";
 import { useBuyKeys } from "@/hooks/api/useBuyKeys";
+import { useNewWithdrawProposal } from "@/hooks/api/useNewWithdrawProposal";
 import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
 import { useSiteStore } from "@/providers/store";
+import { useUserStore } from "@/providers/user";
 //import { useSimpleBuyKeys } from "@/hooks/api/useSimpleBuyKeys";
 import { apiFetch } from "@/services/api";
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 
 const Content: FC <PropsWithChildren> = ({ children }) => {
   
@@ -65,6 +67,22 @@ interface IWithdrawProps {
 
 const Withdraw:FC<IWithdrawProps> = (props) => {
   const { setWithdrawOpen } = props
+
+  const { player } = useUserStore()
+
+  const [usdt, setUsdt] = useState(0)
+
+  useEffect(() => {
+    setUsdt((player?.usdt || 0) / 100)
+  }, [player])
+
+  const {newWithdrawProposal} = useNewWithdrawProposal(apiFetch)
+
+  const handleWithdraw = () => {
+    newWithdrawProposal(+proposal)
+  }
+
+  const [proposal, setProposal] = useState("")
   
   return (
     <div className="fixed top-0 w-screen h-screen overflow-hidden z-50">
@@ -78,6 +96,42 @@ const Withdraw:FC<IWithdrawProps> = (props) => {
 
         <div className='shop-dialog-title mt-16 uppercase px-2'>WITHDRAW</div>
         <div className='shop-dialog-description mt-3 px-2'>Withdrawal is available from <span className="text-green-300">10 USDT</span></div>
+    
+        <div className="w-full mt-4 flex flex-row justify-between items-center px-3">
+          <div className="withdraw-label">You have:</div>
+          <div className="flex flex-row items-center justify-center">
+            <img className="w-8 h-8" src="/stats/usdt.png" alt="" />
+            <div className="flex flex-col items-center justify-center">
+              <div className="withdraw-amount">{usdt.toFixed(2)}</div>
+              <div className="withdraw-currency">USDT</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full flex items-center justify-center">
+          <input className="input-primary input input-xl mt-4 w-[90%]" type="text" 
+          onChange={(e) => setProposal(e.target.value) }
+          value={proposal}
+          />
+        </div>
+
+        {/* {usdt < 100 
+          ? (
+          <div className="w-full flex items-center justify-center mt-4">
+            <div className="function-btn disabled opacity-60 w-full">WITHDRAW</div>
+          </div>)
+          : (
+            <div className="w-full flex items-center justify-center mt-4" >
+              <div className="btn-no-body function-btn w-full">WITHDRAW</div>
+            </div>)
+        } */}
+
+          <div className="w-full flex items-center justify-center mt-4" onClick={handleWithdraw}>
+            <div className="function-btn btn-no-body w-full">WITHDRAW</div>
+          </div>
+
+        
+
     </div>
   </div>
   )
